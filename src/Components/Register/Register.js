@@ -1,5 +1,7 @@
 import axios from 'axios'
 import {useState} from 'react'
+import {connect} from 'react-redux'
+import {updateUser} from '../../Redux/authReducer'
 
 const Register =(props)=>{
     const [username, setUsername] = useState('')
@@ -10,7 +12,7 @@ const Register =(props)=>{
     const register=()=>{
         axios.post('/api/auth/register', {username, email, password, profilePic})
         .then(res=>{
-            // props.updateUser(res.data)
+            props.updateUser(res.data)
             props.history.push('/explore')
             setUsername('')
             setEmail('')
@@ -27,15 +29,15 @@ const Register =(props)=>{
             onChange={(e)=>{setUsername(e.target.value)}}
             />
             <input
+            placeholder='email address'
+            value={email}
+            onChange={(e)=>{setEmail(e.target.value)}}
+            />
+            <input
             placeholder='password'
             type='password'
             value={password}
             onChange={(e)=>{setPassword(e.target.value)}}
-            />
-            <input
-            placeholder='email address'
-            value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
             />
             <input
             placeholder='profile picture'
@@ -50,4 +52,4 @@ const Register =(props)=>{
     )
 }
 
-export default Register
+export default connect(null, {updateUser})(Register)

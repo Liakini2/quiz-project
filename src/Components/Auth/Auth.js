@@ -2,6 +2,8 @@ import './Auth.css'
 import axios from 'axios'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {updateUser} from '../../Redux/authReducer'
 
 const Auth = (props) =>{
     const [email, setEmail] = useState('')
@@ -10,7 +12,7 @@ const Auth = (props) =>{
     const login=()=>{
         axios.post('/api/auth/login', {email, password})
         .then(res=>{
-            // props.updateUser(res.data)
+            props.updateUser(res.data)
             props.history.push('/explore')
             setEmail('')
             setPassword('')
@@ -42,5 +44,5 @@ const Auth = (props) =>{
     )
 }
 
-export default Auth
+export default connect(null, {updateUser})(Auth)
 
