@@ -1,0 +1,71 @@
+header {
+  width: 100vw;
+  height: 10vh;
+  background-color: rebeccapurple;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profilePic {
+  border-radius: 50%;
+  margin: 20px;
+}
+
+.ham {
+  margin: 20px;
+}
+
+.menu-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 35px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  background-color: #fed136;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+}
+.menu-btn_burger {
+  width: 10px;
+  height: 2px;
+  background: white;
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  transition: all 0.5s ease-in-out;
+}
+.menu-btn_burger::before,
+.menu-btn_burger::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: white;
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  transition: all 0.5s ease-in-out;
+}
+.menu-btn_burger::before {
+  transform: translateY(-16px);
+}
+.menu-btn_burger::after {
+  transform: translateY(16px);
+}
+.menu-btn.open .menu-btn_burger {
+  transform: translateX(-50px);
+  background: transparent;
+  box-shadow: none;
+}
+.menu-btn.open .menu-btn_burger::before {
+  transform: rotate(45deg) translate(35px, -35px);
+}
+.menu-btn.open .menu-btn_burger::after {
+  transform: rotate(-45deg) translate(35px, 35px);
+}

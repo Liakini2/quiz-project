@@ -20,7 +20,8 @@ const Auth = (props) =>{
     }    
 
     return(
-        <div>
+        <div className='loginPg'>
+            <h1>Login</h1>
             <input
             placeholder='email address'
             value={email}

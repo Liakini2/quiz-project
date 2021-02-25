@@ -7,6 +7,8 @@ const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 
 //CONTROLLERS
 const AuthCtrl = require('./controllers/auth')
+const QuizCtrl = require('./controllers/quiz')
+const { getUsersQuizzes } = require('./controllers/quiz')
 
 //MIDDLEWARE
 app.use(express.json())
@@ -39,3 +41,10 @@ app.get('/api/auth/user', AuthCtrl.getUser)
 app.post('/api/auth/logout', AuthCtrl.logout)
 
 //Quiz endpoints
+app.get('/api/quizzes', QuizCtrl.getQuizzes)
+app.get('/api/myquizzes', QuizCtrl.getUsersQuizzes)
+app.get('/api/quiz/:quiz_id', QuizCtrl.getQuiz)
+app.post('/api/quizzes', QuizCtrl.addQuiz)
+app.put('/api/quizzes/:quiz_id', QuizCtrl.editQuiz)
+app.delete('/api/quizzes/:quiz_id', QuizCtrl.deleteQuiz)
+

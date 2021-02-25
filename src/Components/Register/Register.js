@@ -1,5 +1,7 @@
+import './Register.css'
 import axios from 'axios'
 import {useState} from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {updateUser} from '../../Redux/authReducer'
 
@@ -22,7 +24,8 @@ const Register =(props)=>{
     }
 
     return(
-        <div>
+        <div className='regPg'>
+            <h1>Register</h1>
             <input
             placeholder='username'
             value={username}
@@ -47,7 +50,11 @@ const Register =(props)=>{
             <button onClick={register}>
                 Register
             </button>
-
+            <Link to='/'>
+            <button>
+                Back to Login
+            </button>
+            </Link>
         </div>
     )
 }
