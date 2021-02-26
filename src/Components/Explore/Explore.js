@@ -17,7 +17,7 @@ const Explore =({setQuizzes, quizReducer, ...props})=>{
             return quiz.title.toLowerCase().includes(search.toLowerCase())
         })
     }
-    
+    console.log(props)
     return(
         <div>
             <h1>Explorer Page</h1>

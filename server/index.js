@@ -8,18 +8,15 @@ const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 //CONTROLLERS
 const AuthCtrl = require('./controllers/auth')
 const QuizCtrl = require('./controllers/quiz')
-const { getUsersQuizzes } = require('./controllers/quiz')
 
 //MIDDLEWARE
 app.use(express.json())
-app.use(
-    session({
-        secret: SESSION_SECRET,
-        resave: false,
-        saveUninitialized: true,
-        cookie: {maxAge: 1000*60*60*60}
-    })
-)
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {maxAge: 1000 * 60 * 60 * 24}
+}))
 
 //DATABASE CONNECTION
 massive({
@@ -34,6 +31,7 @@ massive({
 }).catch(err=>console.log(err))
 
 //ENDPOINTS
+
 //Auth endpoints
 app.post('/api/auth/register', AuthCtrl.register)
 app.post('/api/auth/login', AuthCtrl.login)

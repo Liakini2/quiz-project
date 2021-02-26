@@ -30,8 +30,8 @@ module.exports = {
             return res.status(401).send('Username or Password Incorrect')
         } else {
             delete user.password
-            req.session.user = {username: user.username, email: user.email, profile_pic: user.profile_pic, id: user.id}
-            return res.status(200).send(req.session.user)
+            req.session.user = {username: user.username, email: user.email, profile_pic: user.profile_pic, user_id: user.user_id}
+            res.status(200).send(req.session.user)
         }
     },
     getUser: async (req, res) =>{

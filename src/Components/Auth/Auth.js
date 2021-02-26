@@ -14,8 +14,6 @@ const Auth = (props) =>{
         .then(res=>{
             props.updateUser(res.data)
             props.history.push('/explore')
-            setEmail('')
-            setPassword('')
         }).catch(err=>console.log(err))
     }    
 

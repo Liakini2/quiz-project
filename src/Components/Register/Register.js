@@ -16,10 +16,6 @@ const Register =(props)=>{
         .then(res=>{
             props.updateUser(res.data)
             props.history.push('/explore')
-            setUsername('')
-            setEmail('')
-            setPassword('')
-            setProfilePic('')
         }).catch(err=>console.log(err))
     }
 

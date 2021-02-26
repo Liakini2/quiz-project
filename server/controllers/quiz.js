@@ -8,7 +8,11 @@ module.exports = {
         const {user_id} = req.session.user
         const db = req.app.get('db')
         const results = await db.quiz.get_user_quizzes([user_id])
-        res.status(200).send(results)
+        if(!results){
+            return res.status(200).send(`You have not created any quizzes.`)
+        } else {
+            return res.status(200).send(results)
+        }
     },
     getQuiz: async (req, res)=>{
         const {quiz_id} = req.params
