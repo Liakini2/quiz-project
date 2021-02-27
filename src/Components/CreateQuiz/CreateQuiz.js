@@ -15,10 +15,6 @@ const CreateQuiz=(props)=>{
         axios.post('/api/quizzes', {quizImage, type, description, title})
         .then(res=>{
             props.submitQuiz(res.data)
-            setQuizImage('')
-            setType('')
-            setDescription('')
-            setTitle('')
         })
         .catch(err=>console.log(err))
     }
@@ -45,7 +41,13 @@ const CreateQuiz=(props)=>{
             value={title}
             onChange={(e)=>setTitle(e.target.value)}
             placeholder='title'/>
-            <button onClick={addQuiz}>
+            <button onClick={()=>{
+                addQuiz()
+                setQuizImage('')
+                setType('')
+                setDescription('') 
+                setTitle('')
+            }}>
                 Submit
             </button>
             <Link to='/profile'>

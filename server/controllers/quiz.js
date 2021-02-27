@@ -5,6 +5,7 @@ module.exports = {
         res.status(200).send(results)
     },
     getUsersQuizzes: async (req, res)=>{
+        console.log(req.session.user)
         const {user_id} = req.session.user
         const db = req.app.get('db')
         const results = await db.quiz.get_user_quizzes([user_id])

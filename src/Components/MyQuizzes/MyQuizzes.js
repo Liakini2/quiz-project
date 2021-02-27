@@ -13,30 +13,21 @@ const MyQuizzes=({setUserQuizzes, quizReducer, ...props})=>{
     },[setUserQuizzes])
 
     //if I have time add a search function here
-    console.log(props)
     return(
         <div>
             <div>
-                {quizReducer.userQuizzes.map((quiz)=>(
-                    <div key={quiz.quiz_id}>
+                {quizReducer.userQuizzes.map((quiz, index)=>(
+                    <div key={index}>
                         <h1>{quiz.title}</h1>
                         <img src={quiz.quiz_image} alt='quiz'/>
                         <h1>{quiz.description}</h1>
                         <h1>{quiz.type}</h1>
+                        <Link to={`/editquiz/${quiz.quiz_id}`}>
+                            <button>Edit Quiz</button>
+                        </Link>
                     </div>
                 ))}
             </div>
-            <button>
-                Edit Quiz
-            </button>
-            <button>
-                Delete Quiz
-            </button>
-            <Link to='/profile'>
-                <button>
-                    Back to Profile
-                </button>
-            </Link>
         </div>
     )
 }
