@@ -47,14 +47,10 @@ const CreateQuiz=(props)=>{
                 setType('')
                 setDescription('') 
                 setTitle('')
+                props.history.push('/addquestions')
             }}>
-                Submit
+                Submit & Next
             </button>
-            <Link to='/profile'>
-                <button>
-                    Next
-                </button>
-            </Link>
         </div>
     )
 }

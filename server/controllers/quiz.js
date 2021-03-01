@@ -18,14 +18,14 @@ module.exports = {
     getQuiz: async (req, res)=>{
         const {quiz_id} = req.params
         const db = req.app.get('db')
-        const result = await db.quiz.get_quiz([quiz_id])
+        const [result] = await db.quiz.get_quiz([quiz_id])
         res.status(200).send(result)
     },
     addQuiz: async (req, res)=>{
         const {quizImage, type, description, title} = req.body
         const {user_id} = req.session.user
         const db = req.app.get('db')
-        const result = await db.quiz.add_quiz([user_id, quizImage, type, description, title])
+        const [result] = await db.quiz.add_quiz([user_id, quizImage, type, description, title])
         const newQuiz = {
             author_id: result.author_id, 
             quiz_id: result.quiz_id, 
@@ -44,8 +44,8 @@ module.exports = {
         const db = req.app.get('db')
         const [result] = await db.quiz.get_user_quiz([quiz_id, user_id])
         if(result){
-            const [updatedQuiz] = await db.quiz.editQuiz([quizImage?quizImage:result.quizImage, type?type:result.type, description?description:result.description, title?title:result.title])
-            const newQuiz = {...updatedQuiz, quizImage: updatedQuiz.quiz_image}
+            const [updatedQuiz] = await db.quiz.edit_quiz([quiz_id, user_id, quizImage?quizImage:result.quizImage, type?type:result.type, description?description:result.description, title?title:result.title])
+            const newQuiz = {...updatedQuiz}
             res.status(201).send(newQuiz)
         } else {
             return res.status(401).send(`Unable to edit other user's quizzes.`)

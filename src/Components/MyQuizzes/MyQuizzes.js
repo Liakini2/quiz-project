@@ -8,11 +8,12 @@ import {setUserQuizzes} from '../../Redux/quizReducer'
 const MyQuizzes=({setUserQuizzes, quizReducer, ...props})=>{
     useEffect(()=>{
         axios.get('/api/myquizzes')
-        .then(({data})=>setUserQuizzes(data))
+        .then(({data})=>{setUserQuizzes(data)})
         .catch(err=>console.log(err))
     },[setUserQuizzes])
 
     //if I have time add a search function here
+
     return(
         <div>
             <div>
@@ -23,7 +24,7 @@ const MyQuizzes=({setUserQuizzes, quizReducer, ...props})=>{
                         <h1>{quiz.description}</h1>
                         <h1>{quiz.type}</h1>
                         <Link to={`/editquiz/${quiz.quiz_id}`}>
-                            <button>Edit Quiz</button>
+                            <button> Edit Quiz</button>
                         </Link>
                     </div>
                 ))}

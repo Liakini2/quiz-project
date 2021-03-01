@@ -1,5 +1,6 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
+import AddQuestions from './Components/AddQuestions/AddQuestions'
 import Auth from './Components/Auth/Auth'
 import CreateQuiz from './Components/CreateQuiz/CreateQuiz'
 import EditQuiz from './Components/EditQuiz/EditQuiz'
@@ -16,6 +17,7 @@ export default(
         <Route path='/profile' component={Profile}/>
         <Route path='/createquiz' component={CreateQuiz}/>
         <Route path='/myquizzes' component={MyQuizzes}/>
-        <Route path='/editquiz/id' component={EditQuiz}/>
+        <Route path='/editquiz/:id' component={EditQuiz}/>
+        <Route path='/addquestions' component={AddQuestions}/>
     </Switch>
 )
