@@ -34,9 +34,8 @@ const useStyles = makeStyles((theme)=>({
 
 const AddQuestions=({setQuiz, quizReducer, match, ...props})=>{
     const classes= useStyles()
-    const [questionImage, setQuestionImage] = useState('')
-    const [question, setQuestion] = useState('')
     const [quizId, setQuizId] = useState('')
+    const [questions, setQuestions] = useState([{question: '', questionImage: '', answers:[]}])
     const [inputFields, setInputFields] = useState([{answer: ''},])
     
     useEffect(()=>{
@@ -47,6 +46,7 @@ const AddQuestions=({setQuiz, quizReducer, match, ...props})=>{
         })
     },[match.params.id, quizReducer.setUserQuiz.quiz_id, setQuiz])  
 
+    //if I have time add Protected Routes
     // if(!props.username){
     //     return <Redirect to={{
     //         pathname: '/',
@@ -54,32 +54,45 @@ const AddQuestions=({setQuiz, quizReducer, match, ...props})=>{
     //     }}/>
     // }
 
+    //handle functions for questions
+    const handleQuestion=(index, e)=>{
+        console.log(index, e.target.name)
+        const values=[...questions]
+        values[index][e.target.name] = e.target.value
+        setQuestions(values)
+    }
 
-    // const addQuestion=(props)=>{
-    //     axios.post(`/api/question/${quizId}`, [ ])
-    //     .then(({data})=>{
+    const handleAddQuestion=()=>{
+        setQuestions([...questions, {question: '', questionImage: '', answers:[]}])
+    }
 
-    //     })
-    // }
+    const handleRemoveQuestion=(index)=>{
+        const values = [...questions]
+        values.splice(index, 1)
+        setQuestions(values)
+    }
 
+
+    //handle functions for answers
     const handleChangeInput=(index, e)=>{
+        console.log(index, e.target.name)
         const values =[...inputFields]
         values[index][e.target.name] = e.target.value
         setInputFields(values)
     }
      
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-    }
-
     const handleAddAnswer=()=>{
         setInputFields([...inputFields, {answer: ''}])
     }
-
+    
     const handleRemoveAnswer=(index)=>{
         const values = [...inputFields]
         values.splice(index, 1)
         setInputFields(values)
+    }
+    
+    const handleSubmit=(e)=>{
+        e.preventDefault()
     }
 
     console.log(props)
@@ -89,35 +102,45 @@ const AddQuestions=({setQuiz, quizReducer, match, ...props})=>{
             <form 
             onSubmit={handleSubmit}
             className={classes.root}>
-                <TextField
-                name='question'
-                label='Type your Question Here'
-                variant='filled'
-                value={question}
-                onChange={(e)=>{setQuestion(e.target.value)}}
-                />
-                <TextField
-                name='questionImage'
-                label='Question Image as URL'
-                variant='filled'
-                value={questionImage}
-                onChange={(e)=>{setQuestionImage(e.target.value)}}
-                />
-                {inputFields.map((inputField, index)=>(
+                {questions.map((question, index)=>(
                     <div key={index}>
                         <TextField
-                        name='answer'
-                        label='Answer'
+                        name='question'
+                        label='Type your Question Here'
                         variant='filled'
-                        value={inputField.answer}
-                        onChange={(e)=>handleChangeInput(index, e)}
+                        value={question.question}
+                        onChange={(e)=>{handleQuestion(index, e)}}
                         />
-                    <IconButton onClick={()=>{handleRemoveAnswer(index)}}>
-                        <RemoveIcon/>
-                    </IconButton>
-                    <IconButton onClick={()=>{handleAddAnswer()}}>
-                        <AddIcon/>
-                    </IconButton>
+                        <TextField
+                        name='questionImage'
+                        label='Question Image as URL'
+                        variant='filled'
+                        value={question.questionImage}
+                        onChange={(e)=>{handleQuestion(index, e)}}
+                        />
+                        <IconButton onClick={()=>{handleRemoveQuestion(index)}}>
+                                <RemoveIcon/>
+                            </IconButton>
+                            <IconButton onClick={()=>{handleAddQuestion()}}>
+                                <AddIcon/>
+                            </IconButton>
+                        {inputFields.map((inputField, i)=>(
+                            <div key={i}>
+                                <TextField
+                                name='answer'
+                                label='Type Your Answers Here'
+                                variant='filled'
+                                value={inputField.answer}
+                                onChange={(e)=>handleChangeInput(i, e)}
+                                />
+                            <IconButton onClick={()=>{handleRemoveAnswer(i)}}>
+                                <RemoveIcon/>
+                            </IconButton>
+                            <IconButton onClick={()=>{handleAddAnswer()}}>
+                                <AddIcon/>
+                            </IconButton>
+                            </div>
+                        ))}
                     </div>
                 ))}
                 <Button
@@ -137,6 +160,11 @@ const AddQuestions=({setQuiz, quizReducer, match, ...props})=>{
 const mapStateToProps=(store)=>{return store}
 
 export default connect(mapStateToProps, {setQuiz})(AddQuestions)
+
+
+
+
+//Previous version single question
 
 // const AddQuestions=({setQuiz, quizReducer, match, ...props})=>{
 //     const classes= useStyles()
