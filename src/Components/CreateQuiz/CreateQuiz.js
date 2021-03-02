@@ -13,12 +13,15 @@ const CreateQuiz=(props)=>{
 
     const addQuiz=()=>{
         axios.post('/api/quizzes', {quizImage, type, description, title})
-        .then(res=>{
-            props.submitQuiz(res.data)
+        .then(({data})=>{
+            console.log(data)
+            console.log(props)
+            props.submitQuiz(data)
+            props.history.push(`/addquestions/${data.quiz_id}`)
         })
         .catch(err=>console.log(err))
     }
-
+    console.log(props)
     return(
         <div>
             <h1>Create a quiz</h1>
@@ -47,7 +50,6 @@ const CreateQuiz=(props)=>{
                 setType('')
                 setDescription('') 
                 setTitle('')
-                props.history.push('/addquestions')
             }}>
                 Submit & Next
             </button>
@@ -55,4 +57,4 @@ const CreateQuiz=(props)=>{
     )
 }
 
-export default connect(null, (submitQuiz))(CreateQuiz)
+export default connect(null, {submitQuiz})(CreateQuiz)

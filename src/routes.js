@@ -17,7 +17,7 @@ export default(
         <Route path='/profile' component={Profile}/>
         <Route path='/createquiz' component={CreateQuiz}/>
         <Route path='/myquizzes' component={MyQuizzes}/>
-        <Route path='/editquiz/:id' component={EditQuiz}/>
-        <Route path='/addquestions' component={AddQuestions}/>
+        <Route path='/editquiz/:quiz_id' component={EditQuiz}/>
+        <Route path='/addquestions/:quiz_id' component={AddQuestions}/>
     </Switch>
 )

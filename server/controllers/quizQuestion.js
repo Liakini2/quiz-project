@@ -8,7 +8,7 @@ module.exports = {
     addQuestion: async (req, res)=>{
         const {user_id} = req.session.user
         const db = req.app.get('db')
-        const isAuthor = await db.quizQuestions.get
+        // const result = await db.quizQuestions.
     },
     editQuestion: async (req, res)=>{
         const db = req.app.get('db')
