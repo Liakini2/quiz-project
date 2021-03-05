@@ -17,7 +17,7 @@ const MyQuizzes=({setUserQuizzes, quizReducer, ...props})=>{
     return(
         <div>
             <div>
-                {quizReducer.userQuizzes.map((quiz, index)=>(
+                {quizReducer.setUserQuizzes.map((quiz, index)=>(
                     <div key={index}>
                         <h1>{quiz.title}</h1>
                         <img src={quiz.quiz_image} alt='quiz'/>

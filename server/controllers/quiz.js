@@ -21,7 +21,15 @@ module.exports = {
         const [result] = await db.quiz.get_quiz([quiz_id])
         res.status(200).send(result)
     },
+    getCompleteQuiz: async (req, res)=>{
+        const {quiz_id} = req.params
+        const db = req.app.get('db')
+        const [result] = await db.quiz.get_complete_quiz([quiz_id])
+        res.status(200).send(result)
+    },
     addQuiz: async (req, res)=>{
+        console.log(req.session.user)
+        console.log(req.body)
         const {quizImage, type, description, title} = req.body
         const {user_id} = req.session.user
         const db = req.app.get('db')
@@ -62,5 +70,6 @@ module.exports = {
         } else {
             return res.status(401).send(`Unable to delete other user's quizzes`)
         }
+        //also need to add to this so that questions results and answers are deleted as well
     }
 }

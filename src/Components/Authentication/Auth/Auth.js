@@ -3,7 +3,7 @@ import axios from 'axios'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {updateUser} from '../../Redux/authReducer'
+import {updateUser} from '../../../Redux/authReducer'
 
 const Auth = (props) =>{
     const [email, setEmail] = useState('')

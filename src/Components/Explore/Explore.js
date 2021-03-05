@@ -1,9 +1,21 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+
+//redux
 import {connect} from 'react-redux'
 import {setQuizzes} from '../../Redux/quizReducer'
 
-const Explore =({setQuizzes, quizReducer, ...props})=>{
+//material-ui
+// import Button from '@material-ui/core/Button'
+// import {makeStyles} from '@material-ui/core/styles'
+// const useStyles = makeStyles((theme)=>({
+//     button: {
+//         margin: theme.spacing(1)
+//     }
+// }))
+
+const Explore =({setQuizzes, quizReducer, history, ...props})=>{
+    // const classes = useStyles()
     const [search, setSearch] = useState('')
 
     useEffect(()=>{
@@ -13,10 +25,11 @@ const Explore =({setQuizzes, quizReducer, ...props})=>{
     }, [setQuizzes])
 
     const filterSearch=(search)=>{
-        quizReducer.quizzes.filter((quiz)=>{
+        quizReducer.setQuizzes.filter((quiz)=>{
             return quiz.title.toLowerCase().includes(search.toLowerCase())
         })
     }
+
     return(
         <div>
             <h1>Explorer Page</h1>
@@ -32,12 +45,20 @@ const Explore =({setQuizzes, quizReducer, ...props})=>{
             </button>
 
             <div>
-                {quizReducer.quizzes.map((quiz)=>(
+                {quizReducer.setQuizzes.map((quiz)=>(
                     <div key={quiz.quiz_id}>
                         <h1>{quiz.title}</h1>
                         <img src={quiz.quiz_image} alt='quiz'/>
                         <h1>{quiz.description}</h1>
                         <h1>{quiz.type}</h1>
+                        <button
+                        type='submit'
+                        onClick={()=>{
+                            history.push(`/takequiz/${quiz.quiz_id}`)
+                        }}
+                        >
+                            Take this Quiz!
+                        </button>
                     </div>
                 ))}
             </div>

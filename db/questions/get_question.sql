@@ -1,2 +1,2 @@
 SELECT * FROM quiz_question
-WHERE quiz_id = $1;
+WHERE question_id = $1;

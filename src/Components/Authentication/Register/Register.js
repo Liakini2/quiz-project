@@ -3,7 +3,7 @@ import axios from 'axios'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {updateUser} from '../../Redux/authReducer'
+import {updateUser} from '../../../Redux/authReducer'
 
 const Register =(props)=>{
     const [username, setUsername] = useState('')
@@ -15,7 +15,7 @@ const Register =(props)=>{
         axios.post('/api/auth/register', {username, email, password, profilePic})
         .then(res=>{
             props.updateUser(res.data)
-            props.history.push('/explore')
+            props.history.push('/')
         }).catch(err=>console.log(err))
     }
 
@@ -44,7 +44,7 @@ const Register =(props)=>{
             onChange={(e)=>{setProfilePic(e.target.value)}}
             />
             <button onClick={register}>
-                Register
+                Register and Login
             </button>
             <Link to='/'>
             <button>

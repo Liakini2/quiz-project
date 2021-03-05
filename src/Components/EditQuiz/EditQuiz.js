@@ -11,7 +11,6 @@ const EditQuiz=({setQuiz, editUserQuiz, deleteUserQuiz, quizReducer, match, ...p
     const [type, setType] = useState('')
     const [description, setDescription] = useState('') 
     const [title, setTitle] = useState('')
-    console.log(props)
 
     useEffect(()=>{
         axios.get(`/api/quiz/${match.params.id}`)
