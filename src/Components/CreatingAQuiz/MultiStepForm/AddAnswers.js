@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {setQuestion} from '../../../Redux/questionReducer'
 import {addAnswer} from '../../../Redux/answersReducer'
 
+
 //Routing
 // import {Redirect} from 'react-router-dom'
 
@@ -15,11 +16,8 @@ import Container from '@material-ui/core/Container'
 import TextField from '@material-ui/core/TextField'
 import {makeStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-// import IconButton from '@material-ui/core/IconButton'
-// import RemoveIcon from '@material-ui/icons/Remove'
-// import AddIcon from '@material-ui/icons/Add'
+import { Checkbox } from '@material-ui/core'
 
-//spacing for form
 const useStyles = makeStyles((theme)=>({
     root: {
         '& .MuiTextField-root': {
@@ -31,6 +29,7 @@ const useStyles = makeStyles((theme)=>({
     }
 }))
 
+
 const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, match, history, ...props})=>{
     const classes= useStyles()
     const [questionId, setQuestionId] = useState('')
@@ -39,7 +38,10 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
     const [answerB, setAnswerB] = useState('')
     const [answerC, setAnswerC] = useState('')
     const [answerD, setAnswerD] = useState('')
-
+    const [resultA, setResultA] = useState(false)
+    const [resultB, setResultB] = useState(false)
+    const [resultC, setResultC] = useState(false)
+    const [resultD, setResultD] = useState(false)
 
     useEffect(()=>{
         axios.get(`/api/question/${match.params.question_id}`)
@@ -51,7 +53,7 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
     },[match.params.question_id, questionReducer.setQuestion.question_id, questionReducer.setQuestion.quiz_id, setQuestion])  
 
     const submitAndQuestions=()=>{
-        axios.post(`/api/answer/${questionId}`, {quizId, answerA, answerB, answerC, answerD})
+        axios.post(`/api/answer/${questionId}`, {quizId, answerA, resultA, answerB, resultB, answerC, resultC, answerD, resultD})
             .then(({data})=>{
                 addAnswer(data)
                 history.push(`/addquestions/${questionReducer.setQuestion.quiz_id}`)
@@ -63,7 +65,7 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
         axios.post(`/api/answer/${questionId}`, {quizId, answerA, answerB, answerC, answerD})
         .then(({data})=>{
             addAnswer(data)
-            // history.push(`/addresults/${questionReducer.setQuestion.quiz_id}`)
+            history.push(`/myquizzes`)
         })
         .catch((err)=>console.log(err))
     }
@@ -72,12 +74,43 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
         e.preventDefault()
     }
 
+    //handle state for if answer is correct or incorrect
+    const handleA=()=>{
+        if(resultA===false){
+            setResultA(true)
+        } else {
+            setResultA(false)
+        }
+    }
+    const handleB=()=>{
+        if(resultB===false){
+            setResultB(true)
+        } else {
+            setResultB(false)
+        }
+    }
+    const handleC=()=>{
+        if(resultC===false){
+            setResultC(true)
+        } else {
+            setResultC(false)
+        }
+    }
+    const handleD=()=>{
+        if(resultD===false){
+            setResultD(true)
+        } else {
+            setResultD(false)
+        }
+    }
+
     return(
         <Container>
             <h1>Add Your Answers Here:</h1>
             <form 
             onSubmit={handleSubmit}
             className={classes.root}>
+                {/* answer A */}
                 <TextField
                 name='answer'
                 label='Answer A'
@@ -85,6 +118,15 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
                 value={answerA}
                 onChange={(e)=>setAnswerA(e.target.value)}
                 />
+                <h1>Correct Answer?</h1>
+                <Checkbox
+                name='checked'
+                color='primary'
+                value={resultA}
+                onChange={()=>handleA()}
+                />
+                <br></br>
+                {/* answer B */}
                 <TextField
                 name='answer'
                 label='Answer B'
@@ -92,6 +134,15 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
                 value={answerB}
                 onChange={(e)=>setAnswerB(e.target.value)}
                 />
+                <h1>Correct Answer?</h1>
+                <Checkbox
+                name='checked'
+                color='primary'
+                value={resultB}
+                onChange={()=>handleB()}
+                />
+                <br></br>
+                {/* answer C */}
                 <TextField
                 name='answer'
                 label='Answer C'
@@ -99,6 +150,15 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
                 value={answerC}
                 onChange={(e)=>setAnswerC(e.target.value)}
                 />
+                <h1>Correct Answer?</h1>
+                <Checkbox
+                name='checked'
+                color='primary'
+                value={resultC}
+                onChange={()=>handleC()}
+                />
+                <br></br>
+                {/* answer D */}
                 <TextField
                 name='answer'
                 label='Answer D'
@@ -106,6 +166,15 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
                 value={answerD}
                 onChange={(e)=>setAnswerD(e.target.value)}
                 />
+                <h1>Correct Answer?</h1>
+                <Checkbox
+                name='checked'
+                color='primary'
+                value={resultD}
+                onChange={()=>handleD()}
+                />
+                <br></br>
+                
                 <Button
                 className={classes.button} 
                 variant='contained' 
@@ -120,7 +189,7 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
                 color='primary'
                 type='submit'
                 onClick={()=>{submitAndResults()}}>
-                    Submit and Results
+                    Submit and Finish
                 </Button>
             </form>
         </Container>
@@ -131,110 +200,3 @@ const mapStateToProps=(store)=>{return store}
 
 export default connect(mapStateToProps, {setQuestion, addAnswer})(AddAnswers)
 
-
-// const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, match, history, ...props})=>{
-//     const classes= useStyles()
-//     const [questionId, setQuestionId] = useState('')
-//     const [answers, setAnswers] = useState([{answer: ''},])
-
-
-//     useEffect(()=>{
-//         axios.get(`/api/question/${match.params.question_id}`)
-//         .then(({data})=>{
-//             setQuestion(data)
-//             setQuestionId(questionReducer.setQuestion.question_id)
-//         })
-//     },[match.params.question_id, questionReducer.setQuestion.question_id, setQuestion])  
-
-//     // if(!props.username){
-//     //     return <Redirect to={{
-//     //         pathname: '/',
-//     //         state: {from: props.location}
-//     //     }}/>
-//     // }
-
-
-//     const addAnswer=(props)=>{
-//         axios.post(`/api/answer/${questionId}`, {answers})
-//         .then(({data})=>{
-//             addAnswers(data)
-//         })
-//     }
-
-//     const handleChangeInput=(index, e)=>{
-//         console.log(index, e.target.name)
-//         const values =[...answers]
-//         values[index][e.target.name] = e.target.value
-//         setAnswers(values)
-//     }
-     
-//     const handleSubmit=(e)=>{
-//         e.preventDefault()
-//     }
-
-//     const handleAddAnswer=()=>{
-//         setAnswers([...answers, {answer: ''}])
-//     }
-
-//     const handleRemoveAnswer=(index)=>{
-//         const values = [...answers]
-//         values.splice(index, 1)
-//         setAnswers(values)
-//     }
-
-//     console.log(props)
-//     return(
-//         <Container>
-//             <h1>Add Your Answers Here:</h1>
-//             <form 
-//             onSubmit={handleSubmit}
-//             className={classes.root}>
-//                 {answers.map((answer, index)=>(
-//                     <div key={index}>
-//                         <TextField
-//                         name='answer'
-//                         label='Answer'
-//                         variant='filled'
-//                         value={answer.answer}
-//                         onChange={(e)=>handleChangeInput(index, e)}
-//                         />
-//                     <IconButton onClick={()=>{handleRemoveAnswer(index)}}>
-//                         <RemoveIcon/>
-//                     </IconButton>
-//                     <IconButton onClick={()=>{handleAddAnswer()}}>
-//                         <AddIcon/>
-//                     </IconButton>
-//                     </div>
-//                 ))}
-//                 <Button
-//                 className={classes.button} 
-//                 variant='contained' 
-//                 color='primary' 
-//                 type='submit' 
-//                 onClick={()=>{
-//                     // handleSubmit()
-//                     addAnswers()
-//                 }}>
-//                     Submit and Add Another Question
-//                 </Button>
-//                 <Button
-//                 className={classes.button}
-//                 variant='contained'
-//                 color='primary'
-//                 type='submit'
-//                 onClick={()=>{
-//                     // handleSubmit()
-//                     addAnswer()
-//                     history.push('/myquizzes')
-//                 }}
-//                 >
-//                     Submit and Finish
-//                 </Button>
-//             </form>
-//         </Container>
-//     )
-// }
-
-// const mapStateToProps=(store)=>{return store}
-
-// export default connect(mapStateToProps, {setQuestion, addAnswer})(AddAnswers)

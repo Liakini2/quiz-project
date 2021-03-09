@@ -12,35 +12,57 @@ const useStyles = makeStyles((theme)=>({
 const TakeAQuiz=({match, ...props})=> {
     const classes = useStyles()
     const [questions, setQuestions] = useState([])
+    const [answers, setAnswers] = useState([])
+    const [index, setIndex] = useState(0)
 
     useEffect(()=>{
         axios.get(`/api/questions/${match.params.quiz_id}`)
         .then(({data})=>{
-            console.log(data)
             setQuestions(data)
         })
         .catch(err=>console.log(err))
     },[match.params.quiz_id])
 
-
+    useEffect(()=>{
+        console.log(questions[index])
+        if(questions[index]){
+            axios.get(`/api/answers/${questions[index].question_id}`)
+            .then(({data})=>{
+                console.log(data)
+                setAnswers(data)
+            })
+        }
+    },[questions, index])
 
     return (
         <div>
-            {questions.map((question, index)=>(
-                <div key={question.question_id}>
-                    <h1>{question.question}</h1>
-                    <img src={question.question_image} alt='quiz question'/>
-                </div>
-            ))}
+            <section>
+                <p>{questions[index]?questions[index].question:''}</p>
+                {answers.map((e, i)=>{
+                    return <span key={i}>
+                        <input  
+                        type='radio'
+                        value={e.answer}
+                        id={e.answer_id} 
+                        name='answers'
+                        />
+                        <label htmlFor={e.answer_id}>{e.answer}</label>
+                    </span>
+                })}
+            </section>
+            {index<questions.length-1?
             <Button
             className={classes.button}
             variant='contained'
             color='primary'
             type='submit'
-            // onClick={}
+            onClick={()=>setIndex(index+1)}
             >
                 Answer and Next Question
-            </Button>
+            </Button>:
+            <Button>
+                Get Results    
+            </Button>}
         </div>
     )
 }

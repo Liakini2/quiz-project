@@ -17,16 +17,17 @@ module.exports = {
         console.log(req.body)
         const {question_id} = req.params
         const {quizId, answerA, answerB, answerC, answerD} = req.body
-        await db.answers.add_answer([question_id, quizId, answerA])
-        await db.answers.add_answer([question_id, quizId, answerB])
-        await db.answers.add_answer([question_id, quizId, answerC])
-        const [result] = await db.answers.add_answer([question_id, quizId, answerD])
+        await db.answers.add_answer([question_id, quizId, answerA, resultA])
+        await db.answers.add_answer([question_id, quizId, answerB, resultB])
+        await db.answers.add_answer([question_id, quizId, answerC, resultC])
+        const [result] = await db.answers.add_answer([question_id, quizId, answerD, resultD])
         console.log(result)
         const newAnswer = {
             question_id: result.question_id,
             quiz_id: result.quiz_id,
             answer_id: result.answer_id,
             answer: result.answer,
+            result: result.result
         }
         res.status(200).send(newAnswer)
     },
@@ -34,7 +35,7 @@ module.exports = {
         const {answer} = req.body
         const {answer_id} = req.body
         const db = req.app.get('db')
-        const [result] = await db.answers.edit_answer([answer_id, answer?answer:result.answer])
+        const [result] = await db.answers.edit_answer([answer_id, answer?answer:result.answer, result?result:result.result])
         const newAnswer = {...result}
         res.status(201).send(newAnswer)
     },

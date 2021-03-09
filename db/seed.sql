@@ -29,18 +29,18 @@ CREATE TABLE quiz_question (
     question_image TEXT
 );
 
-
 CREATE TABLE answers (
     question_id INTEGER REFERENCES quiz_question(question_id),
     answer_id SERIAL PRIMARY KEY,
     quiz_id INTEGER,
-    answer VARCHAR(250)
+    answer VARCHAR(250),
+    result VARCHAR(50)
 );
 
 CREATE TABLE result (
     user_id INTEGER REFERENCES users(user_id),
+    quiz_id INTEGER REFERENCES quiz(quiz_id),
     result_id SERIAL PRIMARY KEY,
-    question_id INTEGER REFERENCES quiz_question(question_id),
     result VARCHAR(500)
 );
 
