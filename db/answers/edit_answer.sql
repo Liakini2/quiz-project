@@ -1,4 +1,4 @@
 UPDATE answers
-SET (answer) = ($2)
-WHERE answer_id = $1;
-SELECT * FROM answers;
+SET answer = $2, result = $3
+WHERE answer_id = $1
+RETURNING *;

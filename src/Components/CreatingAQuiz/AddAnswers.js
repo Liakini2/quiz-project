@@ -4,8 +4,8 @@ import {useState, useEffect} from 'react'
 
 //Redux
 import {connect} from 'react-redux'
-import {setQuestion} from '../../../Redux/questionReducer'
-import {addAnswer} from '../../../Redux/answersReducer'
+import {setQuestion} from '../../Redux/questionReducer'
+import {addAnswer} from '../../Redux/answersReducer'
 
 
 //Routing
@@ -74,7 +74,6 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
         e.preventDefault()
     }
 
-    //handle state for if answer is correct or incorrect
     const handleA=()=>{
         if(resultA===false){
             setResultA(true)

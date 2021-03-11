@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 
+//Redux
+
+//Material UI
 import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/core/styles'
 const useStyles = makeStyles((theme)=>({
@@ -24,11 +27,9 @@ const TakeAQuiz=({match, ...props})=> {
     },[match.params.quiz_id])
 
     useEffect(()=>{
-        console.log(questions[index])
         if(questions[index]){
             axios.get(`/api/answers/${questions[index].question_id}`)
             .then(({data})=>{
-                console.log(data)
                 setAnswers(data)
             })
         }
@@ -60,7 +61,13 @@ const TakeAQuiz=({match, ...props})=> {
             >
                 Answer and Next Question
             </Button>:
-            <Button>
+            <Button
+            className={classes.button}
+            variant='contained'
+            color='primary'
+            type='submit'
+            // onClick={}
+            >
                 Get Results    
             </Button>}
         </div>

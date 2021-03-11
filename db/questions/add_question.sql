@@ -1,5 +1,5 @@
 INSERT INTO quiz_question
-(quiz_id, question, question_image)
+(quiz_id, question)
 VALUES
-($1, $2, $3)
+($1, $2)
 RETURNING *;

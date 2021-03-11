@@ -5,7 +5,6 @@ module.exports = {
         res.status(200).send(results)
     },
     getUsersQuizzes: async (req, res)=>{
-        console.log(req.session.user)
         const {user_id} = req.session.user
         const db = req.app.get('db')
         const results = await db.quiz.get_user_quizzes([user_id])
@@ -28,31 +27,31 @@ module.exports = {
         res.status(200).send(result)
     },
     addQuiz: async (req, res)=>{
-        console.log(req.session.user)
-        console.log(req.body)
-        const {quizImage, type, description, title} = req.body
+        const {quiz_image, type, description, title} = req.body
         const {user_id} = req.session.user
         const db = req.app.get('db')
-        const [result] = await db.quiz.add_quiz([user_id, quizImage, type, description, title])
+        if(quiz_image === undefined || quiz_image === null){
+            quiz_image === "https://media.istockphoto.com/photos/neon-light-question-mark-with-concrete-wall-3d-rendering-picture-id1216197124?k=6&m=1216197124&s=612x612&w=0&h=Am6H2ld7B9EXvdcwlmEc5BNUjfU8Jy-PIw-wovrSIyU="
+        }
+        const [result] = await db.quiz.add_quiz([user_id, quiz_image, type, description, title])
         const newQuiz = {
             author_id: result.author_id, 
             quiz_id: result.quiz_id, 
-            quizImage: result.quiz_image, 
+            quiz_image: result.quiz_image, 
             type: result.type, 
             description: result.description, 
-            title: result.title, 
-            date_created: result.date_created
+            title: result.title
         }
         res.status(201).send(newQuiz)
     },
     editQuiz: async (req, res)=>{
-        const {quizImage, type, description, title} = req.body
+        const {quiz_image, type, description, title} = req.body
         const {quiz_id} = req.params
         const {user_id} = req.session.user
         const db = req.app.get('db')
         const [result] = await db.quiz.get_user_quiz([quiz_id, user_id])
         if(result){
-            const [updatedQuiz] = await db.quiz.edit_quiz([quiz_id, user_id, quizImage?quizImage:result.quizImage, type?type:result.type, description?description:result.description, title?title:result.title])
+            const [updatedQuiz] = await db.quiz.edit_quiz([quiz_id, user_id, quiz_image?quiz_image:result.quiz_image, type?type:result.type, description?description:result.description, title?title:result.title])
             const newQuiz = {...updatedQuiz}
             res.status(201).send(newQuiz)
         } else {
@@ -60,16 +59,20 @@ module.exports = {
         }
     },
     deleteQuiz: async (req, res)=>{
+        console.log(req.params)
         const {user_id} = req.session.user
         const {quiz_id} = req.params
         const db = req.app.get('db')
         const [result] = await db.quiz.get_user_quiz([quiz_id, user_id])
+        console.log(result)
+        console.log(user_id)
         if(user_id === result.author_id){
-            db.quiz.delete_quiz([quiz_id])
+            await db.answers.delete_quiz_answers([quiz_id])
+            await db.questions.delete_quiz_questions([quiz_id])
+            await db.quiz.delete_quiz([quiz_id])
             res.sendStatus(200)
         } else {
             return res.status(401).send(`Unable to delete other user's quizzes`)
         }
-        //also need to add to this so that questions results and answers are deleted as well
     }
 }

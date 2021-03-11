@@ -18,15 +18,13 @@ CREATE TABLE quiz (
     quiz_image TEXT,
     type VARCHAR(50),
     description VARCHAR(500),
-    title VARCHAR(100),
-    date_created TIMESTAMP
+    title VARCHAR(100)
 );
 
 CREATE TABLE quiz_question (
     quiz_id INTEGER REFERENCES quiz(quiz_id),
     question_id SERIAL PRIMARY KEY,
-    question VARCHAR(250),
-    question_image TEXT
+    question VARCHAR(250)
 );
 
 CREATE TABLE answers (
@@ -34,7 +32,7 @@ CREATE TABLE answers (
     answer_id SERIAL PRIMARY KEY,
     quiz_id INTEGER,
     answer VARCHAR(250),
-    result VARCHAR(50)
+    result BOOLEAN
 );
 
 CREATE TABLE result (
@@ -43,6 +41,10 @@ CREATE TABLE result (
     result_id SERIAL PRIMARY KEY,
     result VARCHAR(500)
 );
+
+ALTER TABLE answers
+ALTER COLUMN result
+SET DEFAULT false;
 
 SELECT * FROM users;
 SELECT * FROM quiz;

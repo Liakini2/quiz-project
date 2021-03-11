@@ -4,6 +4,7 @@ const massive = require('massive')
 const session = require('express-session')
 const app = express()
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
+const path = require('path')
 
 //CONTROLLERS
 const AuthCtrl = require('./controllers/auth')
@@ -55,13 +56,15 @@ app.get('/api/question/:question_id', QuestionCtrl.getQuestion)
 app.post('/api/question/:quiz_id', QuestionCtrl.addQuestion)
 app.put('/api/question/:question_id', QuestionCtrl.editQuestion)
 app.delete('/api/question/:question_id', QuestionCtrl.deleteQuestion)
-// app.delete('/api/questions/:quiz_id', QuestionCtrl.deleteQuizQuestions)
 
 //Answers endpoints
 app.get('/api/answers/:question_id', AnswerCtrl.getAnswers)
 app.get('/api/answer/:answer_id', AnswerCtrl.getAnswer)
 app.post('/api/answer/:question_id', AnswerCtrl.addAnswer)
 app.put('/api/answer/:answer_id', AnswerCtrl.editAnswer)
-app.delete('/api/answer/:answer_id', AnswerCtrl.deleteAnswer)
-// app.delete('/api/answers/:question_id', AnswerCtrl.deleteQuestionAnswers)
-// app.delete('/api/answers/:quiz_id', AnswerCtrl.deleteQuizAnswers)
+
+//Hosting
+// app.use(express.static(__dirname + '../build/index.html'))
+// app.get('*', (req, res)=>{
+//     res.sendFile(path.join(__dirname, '../build/index.html'))
+// })

@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 
 //Redux
 import {connect} from 'react-redux'
-import {submitQuiz} from '../../../Redux/quizReducer'
+import {submitQuiz} from '../../Redux/quizReducer'
 
 //material-ui
 import Container from '@material-ui/core/Container'
@@ -26,14 +26,14 @@ const useStyles = makeStyles((theme)=>({
 
 const CreateQuiz=(props)=>{
     const classes = useStyles()
-    const [quizImage, setQuizImage] = useState('')
+    const [quiz_image, setQuizImage] = useState('')
     //eventually modify this to be a drop down menu
     const [type, setType] = useState('')
     const [description, setDescription] = useState('') 
     const [title, setTitle] = useState('')
 
     const addQuiz=()=>{
-        axios.post('/api/quizzes', {quizImage, type, description, title})
+        axios.post('/api/quizzes', {quiz_image, type, description, title})
         .then(({data})=>{
             console.log(data)
             props.submitQuiz(data)
@@ -59,7 +59,7 @@ const CreateQuiz=(props)=>{
                 name='quizImage'
                 label='Quiz Image'
                 variant='filled'
-                value={quizImage}
+                value={quiz_image}
                 onChange={(e)=>setQuizImage(e.target.value)}
                 />
                 <TextField

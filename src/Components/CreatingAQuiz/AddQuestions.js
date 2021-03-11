@@ -4,8 +4,8 @@ import {useState, useEffect} from 'react'
 
 //Redux
 import {connect} from 'react-redux'
-import {setQuiz} from '../../../Redux/quizReducer'
-import {addQuestion} from '../../../Redux/questionReducer'
+import {setQuiz} from '../../Redux/quizReducer'
+import {addQuestion} from '../../Redux/questionReducer'
 
 //Routing
 // import {Redirect} from 'react-router-dom'
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme)=>({
 const AddQuestions=({setQuiz, quizReducer, questionReducer, addQuestion, match, history, ...props})=>{
     const classes= useStyles()
     const [quizId, setQuizId] = useState('')
-    const [questionImage, setQuestionImage] = useState('')
     const [question, setQuestion] = useState('')
     
     useEffect(()=>{
@@ -50,7 +49,7 @@ const AddQuestions=({setQuiz, quizReducer, questionReducer, addQuestion, match, 
     // }
 
     const addQuestions=(props)=>{
-        axios.post(`/api/question/${quizId}`, {question, questionImage})
+        axios.post(`/api/question/${quizId}`, {question})
         .then(({data})=>{
             addQuestion(data)
             history.push(`/addanswers/${data.question_id}`)
@@ -73,13 +72,6 @@ const AddQuestions=({setQuiz, quizReducer, questionReducer, addQuestion, match, 
                 variant='filled'
                 value={question}
                 onChange={(e)=>{setQuestion(e.target.value)}}
-                />
-                <TextField
-                name='questionImage'
-                label='Question Image as URL'
-                variant='filled'
-                value={questionImage}
-                onChange={(e)=>{setQuestionImage(e.target.value)}}
                 />
                 <Button
                 className={classes.button} 

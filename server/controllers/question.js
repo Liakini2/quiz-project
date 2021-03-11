@@ -14,31 +14,39 @@ module.exports = {
     addQuestion: async (req, res)=>{
         const db = req.app.get('db')
         const {quiz_id} = req.params
-        const {question, question_image} = req.body
-        const [result] = await db.questions.add_question([quiz_id, question, question_image])
+        const {question} = req.body
+        const [result] = await db.questions.add_question([quiz_id, question])
         const newQuestion = {
             quiz_id: result.quiz_id,
             question_id: result.question_id,
             question: result.question,
-            question_image: result.question_image,
             answers: result.answers
         }
         res.status(200).send(newQuestion)
     },
     editQuestion: async (req, res)=>{
-        const {question, question_image} = req.body
+        const {question, answers} = req.body
         const {question_id} = req.params
-        // const {quiz_id}
         const db = req.app.get('db')
-        const [result] = await db.question.edit_question([question_id, question?question:result.question, question_image?question_image:result.question_image])
-        const newQuestion = {...result}
-        res.status(201).send(newQuestion)
+        for(let i=0; i<answers.length; i++){
+            console.log(answers[i].answer_id)
+            db.answers.edit_answer(answers[i].answer_id, answers[i].answer, answers[i].result)
+        }
+        console.log("error")
+        const [result] = await db.questions.get_question([question_id])
+        if(result){
+            const [changes] = await db.questions.edit_question([question_id, question?question:result.question])
+            const newQuestion = {...changes}
+            res.status(201).send(newQuestion)
+        }
     },
     deleteQuestion: async (req, res)=>{
-        // const {question_id} = req.params
-        // // const {quiz_id}
-        // const db = req.app.get('db')
-        // const [result] = await db.quiz.get
-        //need to make it so that when a question is deleted so are it's answers
+        const {question_id} = req.params
+        const db = req.app.get('db')
+        const [result] = await db.questions.get_question([question_id])
+        if(result){
+            db.answers.delete_question_answers([question_id])
+            db.questions.delete_question([question_id])
+        }
     }
 }
