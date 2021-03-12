@@ -56,9 +56,9 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
         setAltAnswers(answers)
     },[answers])
 
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-    }
+    // const handleSubmit=(e)=>{
+    //     e.preventDefault()
+    // }
 
     //Input field edits
     const submitQuestion=()=>{
@@ -97,7 +97,7 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
     return (
         <Container>
             <form
-            onSubmit={handleSubmit}
+            // onSubmit={handleSubmit}
             className={classes.root}>
                 <p>{questions[index]?questions[index].question:''}</p>
                 <TextField

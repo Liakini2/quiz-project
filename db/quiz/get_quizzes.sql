@@ -1,1 +1,2 @@
-SELECT * FROM quiz;
+SELECT * FROM quiz
+ORDER BY quiz_id;
