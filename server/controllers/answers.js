@@ -1,5 +1,5 @@
 module.exports = {
-    getAnswers: async (req, res)=>{
+    getQuestionAnswers: async (req, res)=>{
         const {question_id} = req.params
         const db = req.app.get('db')
         const results = await db.answers.get_question_answers([question_id])
@@ -11,10 +11,21 @@ module.exports = {
         const [result] = await db.answers.get_answer([answer_id])
         res.status(200).send(result)
     },
+    getQuizAnswers: async (req,res)=>{
+        const {quiz_id} = req.params
+        const db = req.app.get('db')
+        const results = await db.answers.get_quiz_answers([quiz_id])
+        console.log(results)
+        res.status(200).send(results)
+    },
     addAnswer: async (req, res)=>{
         const db = req.app.get('db')
         const {question_id} = req.params
         const {quizId, answerA, answerB, answerC, answerD, resultA, resultB, resultC, resultD} = req.body
+        resultA?resultA===true:resultA===false
+        resultB?resultB===true:resultB===false
+        resultC?resultC===true:resultC===false
+        resultD?resultD===true:resultD===false
         await db.answers.add_answer([question_id, quizId, answerA, resultA])
         await db.answers.add_answer([question_id, quizId, answerB, resultB])
         await db.answers.add_answer([question_id, quizId, answerC, resultC])

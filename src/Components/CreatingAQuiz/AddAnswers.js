@@ -62,7 +62,7 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
     }
 
     const submitAndResults=()=>{
-        axios.post(`/api/answer/${questionId}`, {quizId, answerA, answerB, answerC, answerD})
+        axios.post(`/api/answer/${questionId}`, {quizId, answerA, resultA, answerB, resultB, answerC, resultC, answerD, resultD})
         .then(({data})=>{
             addAnswer(data)
             history.push(`/myquizzes`)

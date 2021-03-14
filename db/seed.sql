@@ -39,7 +39,7 @@ CREATE TABLE result (
     user_id INTEGER REFERENCES users(user_id),
     quiz_id INTEGER REFERENCES quiz(quiz_id),
     result_id SERIAL PRIMARY KEY,
-    result VARCHAR(500)
+    result INTEGER
 );
 
 ALTER TABLE answers

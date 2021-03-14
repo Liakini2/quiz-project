@@ -56,9 +56,9 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
         setAltAnswers(answers)
     },[answers])
 
-    // const handleSubmit=(e)=>{
-    //     e.preventDefault()
-    // }
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+    }
 
     //Input field edits
     const submitQuestion=()=>{
@@ -68,7 +68,7 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
             if(index+1===questions.length){
                 history.push('/myquizzes')
             } else {
-                setIndex(index+1)
+                setIndex((i)=>i+1)
             }
         })
         .catch(err=>console.log(err))
@@ -89,7 +89,12 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
     const deleteQuestion=()=>{
         axios.delete(`/api/question/${question_id}`)
         .then(({data})=>{
-            window.location.reload(false)
+            axios.get(`/api/questions/${match.params.quiz_id}`)
+        .then(({data})=>{
+            setQuestions(data)
+            setIndex(0)
+        })
+        .catch(err=>console.log(err))
         })
         .catch(err=>console.log(err))
     }
@@ -97,7 +102,7 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
     return (
         <Container>
             <form
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             className={classes.root}>
                 <p>{questions[index]?questions[index].question:''}</p>
                 <TextField
@@ -143,7 +148,7 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
 
                 <br></br>
 
-                {questions.length>1 ? 
+                {questions.length>1? 
                 <Button
                 id='deleteButton'
                 className={classes.button}

@@ -13,6 +13,8 @@ import Profile from './Components/Profile/Profile'
 import Register from './Components/Authentication/Register/Register'
 import TakeAQuiz from './Components/TakeAQuiz/TakeAQuiz'
 import EditQuestions from './Components/EditQuiz/EditQuestions'
+import Result from './Components/TakeAQuiz/Result'
+
 
 export default(
     <Switch>
@@ -28,6 +30,7 @@ export default(
         
         {/* take a quiz */}
         <Route path='/takequiz/:quiz_id' component={TakeAQuiz}/>
+        <Route path='/quizresult/:quiz_id' component={Result}/>
 
         {/* adding quiz information */}
         <Route path='/createquiz' component={CreateQuiz}/>

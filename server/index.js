@@ -11,6 +11,7 @@ const AuthCtrl = require('./controllers/auth')
 const QuizCtrl = require('./controllers/quiz')
 const QuestionCtrl = require('./controllers/question')
 const AnswerCtrl = require('./controllers/answers')
+const ResultCtrl = require('./controllers/results')
 
 //MIDDLEWARE
 app.use(express.json())
@@ -58,10 +59,17 @@ app.put('/api/question/:question_id', QuestionCtrl.editQuestion)
 app.delete('/api/question/:question_id', QuestionCtrl.deleteQuestion)
 
 //Answers endpoints
-app.get('/api/answers/:question_id', AnswerCtrl.getAnswers)
+app.get('/api/answers/:question_id', AnswerCtrl.getQuestionAnswers)
 app.get('/api/answer/:answer_id', AnswerCtrl.getAnswer)
+app.get('/api/quizanswers/:quiz_id', AnswerCtrl.getQuizAnswers)
 app.post('/api/answer/:question_id', AnswerCtrl.addAnswer)
 app.put('/api/answer/:answer_id', AnswerCtrl.editAnswer)
+
+//Result endpoints
+app.get('/api/result/:quiz_id', ResultCtrl.getResult)
+app.get('/api/results/:user_id', ResultCtrl.getResults)
+app.post('/api/result/:quiz_id', ResultCtrl.addResult)
+
 
 //Hosting
 // app.use(express.static(__dirname + '../build/index.html'))

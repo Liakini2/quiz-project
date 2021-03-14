@@ -29,10 +29,8 @@ module.exports = {
         const {question_id} = req.params
         const db = req.app.get('db')
         for(let i=0; i<answers.length; i++){
-            console.log(answers[i].answer_id)
             db.answers.edit_answer(answers[i].answer_id, answers[i].answer, answers[i].result)
         }
-        console.log("error")
         const [result] = await db.questions.get_question([question_id])
         if(result){
             const [changes] = await db.questions.edit_question([question_id, question?question:result.question])
@@ -45,8 +43,10 @@ module.exports = {
         const db = req.app.get('db')
         const [result] = await db.questions.get_question([question_id])
         if(result){
-            db.answers.delete_question_answers([question_id])
-            db.questions.delete_question([question_id])
+            await db.answers.delete_question_answers([question_id])
+            await db.questions.delete_question([question_id])
+            return res.sendStatus(200)
         }
+        return res.sendStatus(200)
     }
 }
