@@ -1,6 +1,7 @@
 //imported to use state and lifecycle methods
 import axios from 'axios'
 import {useState, useEffect} from 'react'
+import './CreateQuiz.css'
 
 //Redux
 import {connect} from 'react-redux'
@@ -11,10 +12,8 @@ import {addQuestion} from '../../Redux/questionReducer'
 // import {Redirect} from 'react-router-dom'
 
 //material ui styling and form
-import Container from '@material-ui/core/Container'
 import TextField from '@material-ui/core/TextField'
 import {makeStyles} from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
 
 //spacing for form
 const useStyles = makeStyles((theme)=>({
@@ -22,9 +21,6 @@ const useStyles = makeStyles((theme)=>({
         '& .MuiTextField-root': {
             margin: theme.spacing(1)
         }
-    },
-    button: {
-        margin: theme.spacing(1)
     }
 }))
 
@@ -61,11 +57,14 @@ const AddQuestions=({setQuiz, quizReducer, questionReducer, addQuestion, match, 
     }
 
     return(
-        <Container>
-            <h1>Add Your Questions Here:</h1>
+        <container className='createQuiz'>
+            <div className='pageDescription'>
+                <h1 className='introText'>Add Your Question Here:</h1>
+            </div>
             <form 
             onSubmit={handleSubmit}
-            className={classes.root}>
+            className={classes.root}
+            id='altInputFields'>
                 <TextField
                 name='question'
                 label='Type your Question Here'
@@ -73,19 +72,21 @@ const AddQuestions=({setQuiz, quizReducer, questionReducer, addQuestion, match, 
                 value={question}
                 onChange={(e)=>{setQuestion(e.target.value)}}
                 />
-                <Button
-                className={classes.button} 
-                variant='contained' 
-                color='primary' 
+                <button
+                className='buttons'
                 type='submit' 
                 onClick={()=>{
-                    // handleSubmit()
                     addQuestions()
                 }}>
                     Submit and Next
-                </Button>
+                </button>
             </form>
-        </Container>
+            <footer>
+                <p>
+                You will have the option to add more questions on the next page.
+                </p>
+            </footer>
+        </container>
     )
 }
 

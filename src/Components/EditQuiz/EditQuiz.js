@@ -1,6 +1,9 @@
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+
+import './EditQuiz.css'
+
 import {connect} from 'react-redux'
 import {editUserQuiz, setQuiz, deleteUserQuiz} from '../../Redux/quizReducer'
 
@@ -43,37 +46,44 @@ const EditQuiz=({setQuiz, editUserQuiz, deleteUserQuiz, quizReducer, match, ...p
 
     return(
         <div>
-            <Link to='/myquizzes'>
-                <button>Cancel Edit</button>
-            </Link>
-            <h1>Quiz Image:</h1>
-            <input
-            value={quiz_image||""}
-            onChange={(e)=>setQuizImage(e.target.value)}
-            placeholder='quiz image'/>
-            <h1>Quiz Type:</h1>
-            <input
-            value={type||""}
-            onChange={(e)=>setType(e.target.value)}
-            placeholder='type'/>
-            <h1>Quiz Description</h1>
-            <input
-            value={description||""}
-            onChange={(e)=>setDescription(e.target.value)}
-            placeholder='description'/>
-            <h1>Quiz Title</h1>
-            <input
-            value={title||""}
-            onChange={(e)=>setTitle(e.target.value)}
-            placeholder='title'/>
-            <br></br>
-            <Link to={`/editquestions/${match.params.quiz_id}`}>
-                <button onClick={()=>{editQuiz()}}>Submit Changes and Next</button>
-            </Link>
-            <br></br>
-            <Link to='/myquizzes'>
-                <button onClick={()=>{deleteQuiz()}}>Delete Quiz</button>
-            </Link>
+            <div className='aboutEditQuiz'>
+                <h1 className='introText'>Edit Your Quiz!</h1>
+                <Link to='/myquizzes'>
+                    <button className='altButtons'>Cancel</button>
+                </Link>
+            </div>
+            <div className='editQuizInputs'>
+                <h1>Quiz Image:</h1>
+                <textarea
+                className='editInputField'
+                value={quiz_image||""}
+                onChange={(e)=>setQuizImage(e.target.value)}
+                placeholder='quiz image'/>
+                <h1>Quiz Type:</h1>
+                <input
+                className='altEditInputField'
+                value={type||""}
+                onChange={(e)=>setType(e.target.value)}
+                placeholder='type'/>
+                <h1>Quiz Description</h1>
+                <textarea
+                className='editInputField'
+                value={description||""}
+                onChange={(e)=>setDescription(e.target.value)}
+                placeholder='description'/>
+                <h1>Quiz Title</h1>
+                <input
+                className='altEditInputField'
+                value={title||""}
+                onChange={(e)=>setTitle(e.target.value)}
+                placeholder='title'/>
+                <Link to={`/editquestions/${match.params.quiz_id}`}>
+                    <button className='buttons' onClick={()=>{editQuiz()}}>Submit Changes and Next</button>
+                </Link>
+                <Link to='/myquizzes'>
+                    <button className='buttons' onClick={()=>{deleteQuiz()}}>Delete Quiz</button>
+                </Link>
+            </div>
         </div>
     )
 }

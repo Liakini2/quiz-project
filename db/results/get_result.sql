@@ -1,2 +1,2 @@
 SELECT * FROM result
-WHERE quiz_id = $1 AND user_id = $2;
+WHERE result_id = $1 AND user_id = $2;

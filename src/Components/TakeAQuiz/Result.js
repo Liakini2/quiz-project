@@ -1,22 +1,21 @@
 import axios from 'axios'
 import {useEffect, useState} from 'react'
+import './TakeAQuiz.css' 
 
-const Result = ({match, ...props}) => {
+const Result = ({history, match, ...props}) => {
     const [userResult, setUserResult] = useState(0)
     useEffect(() => {
-        axios.get(`/api/result/${match.params.quiz_id}`)
+        axios.get(`/api/result/${match.params.result_id}`)
         .then(({data})=>{
+            console.log(data)
             setUserResult(data)
         })
         .catch(err=>console.log(err))
-    }, [match.params.quiz_id])
+    }, [match.params.result_id])
 
     return (
-        <div>
-            <h1>YOU GOT {userResult.result}%</h1>
-            <button>
-
-            </button>
+        <div className='grandTotal'>
+            <h1 className='yourResult'>YOU GOT {userResult.result}%</h1>
         </div>
     )
 }

@@ -1,3 +1,4 @@
+import './Explore.css'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 
@@ -5,17 +6,7 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 import {setQuizzes} from '../../Redux/quizReducer'
 
-//material-ui
-// import Button from '@material-ui/core/Button'
-// import {makeStyles} from '@material-ui/core/styles'
-// const useStyles = makeStyles((theme)=>({
-//     button: {
-//         margin: theme.spacing(1)
-//     }
-// }))
-
 const Explore =({setQuizzes, quizReducer, history, ...props})=>{
-    // const classes = useStyles()
     const [search, setSearch] = useState('')
 
     useEffect(()=>{
@@ -31,27 +22,33 @@ const Explore =({setQuizzes, quizReducer, history, ...props})=>{
     }
 
     return(
-        <div>
-            <h1>Explorer Page</h1>
-            <input 
-            placeholder='Search'
-            value={search}
-            onChange={(e)=>{setSearch(e.target.value)}}
-            />
-            <button
-            onClick={()=>{filterSearch(search)}}
-            >
-                Search
-            </button>
+        <div className='expore'>
+            <div className='aboutExplore'>
+                <input 
+                className='searchBar'
+                placeholder='Search...'
+                value={search}
+                onChange={(e)=>{setSearch(e.target.value)}}
+                />
+                <button
+                className='altButtons'
+                onClick={()=>{filterSearch(search)}}
+                >
+                    Search 
+                </button>
+            </div>
 
-            <div>
+            <div className='quizDisplay'>
                 {quizReducer.setQuizzes.map((quiz)=>(
-                    <div key={quiz.quiz_id}>
-                        <h1>{quiz.title}</h1>
-                        <img src={quiz.quiz_image} alt='quiz'/>
+                    <div 
+                    className='quizCards'
+                    key={quiz.quiz_id}>
+                        <h1 className='quizTitle'>{quiz.title}</h1>
+                        <img className='quizImage' src={quiz.quiz_image} alt='quiz'/>
                         <h1>{quiz.description}</h1>
                         <h1>{quiz.type}</h1>
                         <button
+                        className='buttons'
                         type='submit'
                         onClick={()=>{
                             history.push(`/takequiz/${quiz.quiz_id}`)
@@ -62,6 +59,12 @@ const Explore =({setQuizzes, quizReducer, history, ...props})=>{
                     </div>
                 ))}
             </div>
+            <footer>
+                <h1 className='pageDescription'>
+                Use this page to find quizzes created by other users and test your knowledge!
+                To create a quiz or view your results visit your profile.
+                </h1>
+            </footer>
         </div>
     )
 }

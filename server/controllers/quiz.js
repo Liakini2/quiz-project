@@ -59,14 +59,12 @@ module.exports = {
         }
     },
     deleteQuiz: async (req, res)=>{
-        console.log(req.params)
         const {user_id} = req.session.user
         const {quiz_id} = req.params
         const db = req.app.get('db')
         const [result] = await db.quiz.get_user_quiz([quiz_id, user_id])
-        console.log(result)
-        console.log(user_id)
         if(user_id === result.author_id){
+            await db.results.delete_result([quiz_id])
             await db.answers.delete_quiz_answers([quiz_id])
             await db.questions.delete_quiz_questions([quiz_id])
             await db.quiz.delete_quiz([quiz_id])

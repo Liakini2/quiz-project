@@ -58,35 +58,47 @@ const TakeAQuiz=({match, history, ...props})=>{
         if(index<questions.length-1){
             setIndex(index+1)
         } else {
-            let rightAnswers = []
-            for(let i=0; i<results.length-1; i++){
-                if(results[i]===userResults[i]){
-                    rightAnswers.push(results[i])
-                }
-            }
-            setResult(Math.round((rightAnswers.length/results.length)*100))
-            let showButton = document.getElementsByClassName('results')
+            let showButton = document.getElementsByClassName('calculate')
             for (let i=0; i<showButton.length; i+=1){
                 showButton[i].style.display='block'
             }
+             
+        }
+    }
+
+    const hideButton=()=>{
+        let showButton = document.getElementsByClassName('calculate')
+        for (let i=0; i<showButton.length; i+=1){
+            showButton[i].style.display='none'
+        }
+    }
+    
+    const findResult=()=>{
+        let rightAnswers = []
+        for(let i=0; i<results.length; i++){
+            if(results[i]===userResults[i]){
+                rightAnswers.push(results[i])
+            }
+        }
+        setResult(Math.round((rightAnswers.length/results.length)*100))
+        let showButton = document.getElementsByClassName('results')
+        for (let i=0; i<showButton.length; i+=1){
+            showButton[i].style.display='block'
         }
     }
     
     const sendResult=()=>{
         axios.post(`/api/result/${match.params.quiz_id}`, {result})
-        .then((_)=>{
-            history.push(`/quizresult/${match.params.quiz_id}`)
+        .then(({data})=>{
+            history.push(`/quizresult/${data.result_id}`)
         })
         .catch(err=>console.log(err))
     }
 
-    console.log(`results:`, results)
-    console.log(`userResults:`, userResults)
-    console.log('result:', result)
     return (
-        <div>
-            <section>
-                <p>{questions[index]?questions[index].question:''}</p>
+        <div className='takeAQuiz'>
+            <section className='quiz'>
+                <p className='question'>{questions[index]?questions[index].question:''}</p>
                 {answers.map((e, i)=>{
                     return <Button 
                     className={classes.button}
@@ -105,7 +117,17 @@ const TakeAQuiz=({match, history, ...props})=>{
                 })}
             </section>
             <button
-            className='results'
+            className='calculate buttons'
+            variant='contained'
+            type='submit'
+            onClick={()=>{
+                findResult()
+                hideButton()
+            }}>
+                Calculate Your Results!
+            </button>
+            <button
+            className='results buttons'
             variant='contained'
             type='submit'
             onClick={()=>{
@@ -113,6 +135,9 @@ const TakeAQuiz=({match, history, ...props})=>{
             }}>
                 Get Results
             </button>
+            <footer>
+                <p>Select an answer to move on to the next question.</p>
+            </footer>
         </div>
     )
 }

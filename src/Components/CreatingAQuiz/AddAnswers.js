@@ -1,6 +1,7 @@
 //imported to use state and lifecycle methods
 import axios from 'axios'
 import {useState, useEffect} from 'react'
+import './CreateQuiz.css'
 
 //Redux
 import {connect} from 'react-redux'
@@ -12,10 +13,8 @@ import {addAnswer} from '../../Redux/answersReducer'
 // import {Redirect} from 'react-router-dom'
 
 //material ui styling and form
-import Container from '@material-ui/core/Container'
 import TextField from '@material-ui/core/TextField'
 import {makeStyles} from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
 import { Checkbox } from '@material-ui/core'
 
 const useStyles = makeStyles((theme)=>({
@@ -23,9 +22,6 @@ const useStyles = makeStyles((theme)=>({
         '& .MuiTextField-root': {
             margin: theme.spacing(1)
         }
-    },
-    button: {
-        margin: theme.spacing(1)
     }
 }))
 
@@ -104,60 +100,66 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
     }
 
     return(
-        <Container>
-            <h1>Add Your Answers Here:</h1>
+        <container className='createQuiz'>
+            <div className='pageDescription'>
+                <h1 className='introText'>Add Your Answers Here:</h1>
+            </div>
             <form 
             onSubmit={handleSubmit}
-            className={classes.root}>
-                {/* answer A */}
-                <TextField
-                name='answer'
-                label='Answer A'
-                variant='filled'
-                value={answerA}
-                onChange={(e)=>setAnswerA(e.target.value)}
-                />
-                <h1>Correct Answer?</h1>
-                <Checkbox
-                name='checked'
-                color='primary'
-                value={resultA}
-                onChange={()=>handleA()}
-                />
-                <br></br>
+            className={classes.root}
+            id='copyInputFields'>
+                <div className='answerInput'>
+                    <TextField
+                    name='answer'
+                    label='Answer A'
+                    variant='filled'
+                    value={answerA}
+                    onChange={(e)=>setAnswerA(e.target.value)}
+                    />
+                    <h1>Correct?</h1>
+                    <Checkbox
+                    name='checked'
+                    color='primary'
+                    value={resultA}
+                    onChange={()=>handleA()}
+                    />
+                </div>
                 {/* answer B */}
-                <TextField
-                name='answer'
-                label='Answer B'
-                variant='filled'
-                value={answerB}
-                onChange={(e)=>setAnswerB(e.target.value)}
-                />
-                <h1>Correct Answer?</h1>
-                <Checkbox
-                name='checked'
-                color='primary'
-                value={resultB}
-                onChange={()=>handleB()}
-                />
-                <br></br>
+                <div className='answerInput'>
+                    <TextField
+                    name='answer'
+                    label='Answer B'
+                    variant='filled'
+                    value={answerB}
+                    onChange={(e)=>setAnswerB(e.target.value)}
+                    />
+                    <h1>Correct?</h1>
+                    <Checkbox
+                    name='checked'
+                    color='primary'
+                    value={resultB}
+                    onChange={()=>handleB()}
+                    />
+                </div>
                 {/* answer C */}
-                <TextField
-                name='answer'
-                label='Answer C'
-                variant='filled'
-                value={answerC}
-                onChange={(e)=>setAnswerC(e.target.value)}
-                />
-                <h1>Correct Answer?</h1>
-                <Checkbox
-                name='checked'
-                color='primary'
-                value={resultC}
-                onChange={()=>handleC()}
-                />
-                <br></br>
+                <div className='answerInput'>
+                    <TextField
+                    name='answer'
+                    label='Answer C'
+                    variant='filled'
+                    value={answerC}
+                    onChange={(e)=>setAnswerC(e.target.value)}
+                    />
+                    <h1>Correct?</h1>
+                    <Checkbox
+                    name='checked'
+                    color='primary'
+                    value={resultC}
+                    onChange={()=>handleC()}
+                    />
+                </div>
                 {/* answer D */}
+                <div className='answerInput'>
                 <TextField
                 name='answer'
                 label='Answer D'
@@ -165,33 +167,32 @@ const AddAnswers=({setQuestion, questionReducer, answersReducer, addAnswers, mat
                 value={answerD}
                 onChange={(e)=>setAnswerD(e.target.value)}
                 />
-                <h1>Correct Answer?</h1>
+                <h1>Correct?</h1>
                 <Checkbox
                 name='checked'
                 color='primary'
                 value={resultD}
                 onChange={()=>handleD()}
                 />
-                <br></br>
+                </div>
                 
-                <Button
-                className={classes.button} 
-                variant='contained' 
-                color='primary' 
+                <button
+                className='buttons'
                 type='submit' 
                 onClick={()=>{submitAndQuestions()}}>
-                    Submit and Add Another Question
-                </Button>
-                <Button
-                className={classes.button}
-                variant='contained'
-                color='primary'
+                    Add Another Question
+                </button>
+                <button
+                className='buttons'
                 type='submit'
                 onClick={()=>{submitAndResults()}}>
                     Submit and Finish
-                </Button>
+                </button>
             </form>
-        </Container>
+            <footer>
+                <p>Remember to check the checkbox if your answer is a correct answer.</p>
+            </footer>
+        </container>
     )
 }
 

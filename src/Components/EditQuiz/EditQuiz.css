@@ -1,0 +1,48 @@
+.editQuestions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.aboutEditQuiz {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #255693;
+  color: white;
+  width: 100vw;
+  height: 8vh;
+}
+
+.editQuizInputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.editInputField {
+  height: 10vh;
+  width: 75vw;
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+.altEditInputField {
+  height: 20px;
+  width: 75vw;
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+.currentValue {
+  font-size: larger;
+}
+
+.altAnswerInput {
+  margin-bottom: 30px;
+}

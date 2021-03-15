@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
+import './EditQuiz.css'
 
 //Redux
 import {connect} from 'react-redux'
@@ -8,9 +9,8 @@ import {addQuestion} from '../../Redux/questionReducer'
 
 
 //Material UI
-import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/core/styles'
-import { Container, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { Checkbox } from '@material-ui/core'
 
 const useStyles = makeStyles((theme)=>({
@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme)=>({
         '& .MuiTextField-root': {
             margin: theme.spacing(1)
         }
-    },
-    button: {
-        margin: theme.spacing(1)
     }
 }))
 
@@ -100,70 +97,75 @@ const EditQuestions=({history, ddQuestion, addAnswer, match, ...props})=>{
     }
 
     return (
-        <Container>
+        <container className='editQuestions'>
             <form
             onSubmit={handleSubmit}
             className={classes.root}>
-                <p>{questions[index]?questions[index].question:''}</p>
+                <div className='aboutEditQuiz'>
+                    <p className='introText'>Edit Your Question</p>
+                </div>
+                <p className='currentValue'>{questions[index]?questions[index].question:''}</p>
                 <TextField
                 name='question'
-                label='Type here to change your question'
+                label='Change Question Here'
                 variant='filled'
                 value={question}
                 onChange={(e)=>setQuestion(e.target.value)}
                 />
 
+                <div className='aboutEditQuiz'>
+                    <p className='introText'>Edit Your Answers</p>
+                </div>
+
                 {altAnswers.map((answer, index)=>{
                     return <section key={answer.answer_id}>
-                        <p>{answers[index].answer}</p>
-                        <TextField
-                        name='answer'
-                        label={`answer ${String.fromCharCode(65+index)}`}
-                        variant='filled'
-                        value={answer.answer}
-                        onChange={(e)=>changeAnswer(index, e.target.value)}
-                        />
-                        <h1>Correct Answer?</h1>
-                        <Checkbox
-                        name='checked'
-                        color='primary'
-                        value={answer.result}
-                        checked={answer.result}
-                        onChange={()=>changeResult(index)}
-                        />
+                        <p className='currentValue'>{answers[index].answer}</p>
+                        <div className='answerInput altAnswerInput'>
+                            <TextField
+                            name='answer'
+                            label={`answer ${String.fromCharCode(65+index)}`}
+                            variant='filled'
+                            value={answer.answer}
+                            onChange={(e)=>changeAnswer(index, e.target.value)}
+                            />
+                            <h1>Correct?</h1>
+                            <Checkbox
+                            name='checked'
+                            color='primary'
+                            value={answer.result}
+                            checked={answer.result}
+                            onChange={()=>changeResult(index)}
+                            />
+                        </div>
                     </section>
                 })}
 
-                <Button
-                className={classes.button}
-                variant='contained'
-                color='primary'
+                <button
+                className='buttons'
                 type='submit'
                 onClick={()=>{
                     submitQuestion()
                 }}
                 >
                     {index<questions.length-1? 'Submit and Next' : 'Submit Changes'}
-                </Button>
+                </button>
 
                 <br></br>
 
                 {questions.length>1? 
-                <Button
+                <button
                 id='deleteButton'
-                className={classes.button}
-                variant='contained'
-                color='secondary'
+                className='buttons'
                 type='submit'
                 onClick={()=>{
                     deleteQuestion()
                 }}>
                     Delete Question
-                </Button>:
+                </button>:
                 console.log(questions.length)    
                 }
             </form>
-        </Container>
+        </container>
     )
 }
 

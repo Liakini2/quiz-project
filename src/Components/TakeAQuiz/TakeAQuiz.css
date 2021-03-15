@@ -1,3 +1,60 @@
+.takeAQuiz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.quiz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: #1d4372;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 2%;
+}
+
+.question {
+  margin: 30px;
+  font-size: x-large;
+  color: white;
+}
+
 .results {
   display: none;
+}
+
+.calculate {
+  display: none;
+}
+
+.newButtons {
+  background-color: #adcaeb;
+  margin: 10px;
+  width: 50vw;
+  height: 50px;
+  max-height: auto;
+  border-radius: 2%;
+  font-size: medium;
+}
+
+.grandTotal {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.yourResult {
+  background-color: #1d4372;
+  padding-top: 100px;
+  color: white;
+  font-size: xx-large;
+  height: 20vh;
+  width: 90vw;
+  margin-top: 50px;
+  border-radius: 2%;
 }

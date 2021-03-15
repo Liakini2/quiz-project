@@ -14,31 +14,55 @@ const Auth = (props) =>{
         .then(res=>{
             props.updateUser(res.data)
             props.history.push(props.location.state?props.location.state.from:'/explore')
-        }).catch(err=>console.log(err))
+        }).catch(err=>{
+            alert(`Please register prior to logging in!`)
+            console.log(err)
+        })
     }    
 
     return(
         <div className='loginPg'>
-            <h1>Login</h1>
-            <input
-            placeholder='email address'
-            value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
-            />
-            <input
-            placeholder='password'
-            type='password'
-            value={password}
-            onChange={(e)=>{setPassword(e.target.value)}}
-            />
-            <button onClick={login}>
-                Login
-            </button>
-            <Link to='/register'>
-            <button>
-                Register
-            </button>
-            </Link>
+            <div className='about'>
+                <h1 className='welcome'>Welcome to Trivial Trivia</h1>
+                <div className='aboutText'>
+                    Use our website to create 
+                    your own quizzes, challenge
+                    your friends, and test your
+                    knowledge!
+                </div>
+            </div>
+            <br></br>
+            <div className='login'>
+                <input
+                placeholder='email address'
+                value={email}
+                onChange={(e)=>{setEmail(e.target.value)}}
+                />
+                <br></br>
+                <input
+                placeholder='password'
+                type='password'
+                value={password}
+                onChange={(e)=>{setPassword(e.target.value)}}
+                />
+                <br></br>
+                <button 
+                className='authButtons'
+                onClick={login}>
+                    Login
+                </button>
+            </div>
+            <br></br>
+            <div className='register'>
+                <p className='inst'>New to trivial trivia? </p>
+                <p className='inst'>Click the button below <br></br>to register a new account.</p>
+                <Link to='/register'>
+                <button
+                className='authButtons'>
+                    Create An Account
+                </button>
+                </Link>
+            </div>
         </div>
     )
 }

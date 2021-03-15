@@ -1,7 +1,102 @@
 .loginPg {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 100px;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+}
+
+.about {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 30vh;
+  background-image: url("https://media.istockphoto.com/photos/innovation-and-new-ideas-lightbulb-concept-with-question-mark-picture-id1279690557?k=6&m=1279690557&s=612x612&w=0&h=HnYiimAd6S5-m-U87G2LHkC6dhwE1wtgDED_dXgnDlg=");
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome {
+  font-size: x-large;
+  justify-content: center;
+  align-items: center;
+  padding-right: 50vw;
+  margin: 50px;
+}
+
+.aboutText {
+  font-size: x-large;
+  justify-content: center;
+  align-items: center;
+  padding-right: 50vw;
+  margin: 50px;
+}
+
+.inst {
+  color: black;
+}
+
+input {
+  color: #8c93a8;
+  margin: 5px;
+}
+
+.register {
+  margin-top: 30px;
+}
+
+.authButtons {
+  margin: 5px;
+  height: 45px;
+  width: 100px;
+  background-color: #255693;
+  border: 2px solid #255693;
+  color: white;
+  border-radius: 5%;
+}
+
+@media screen and (max-width: 500px) {
+  .loginPg {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .about {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 25vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .welcome {
+    font-size: x-large;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+  }
+
+  .aboutText {
+    font-size: larger;
+    justify-content: center;
+    align-items: center;
+    background-color: #1d4372;
+    width: 100vw;
+    padding-right: 0;
+    margin: 0;
+  }
 }

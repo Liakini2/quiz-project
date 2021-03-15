@@ -30,7 +30,7 @@ export default(
         
         {/* take a quiz */}
         <Route path='/takequiz/:quiz_id' component={TakeAQuiz}/>
-        <Route path='/quizresult/:quiz_id' component={Result}/>
+        <Route path='/quizresult/:result_id' component={Result}/>
 
         {/* adding quiz information */}
         <Route path='/createquiz' component={CreateQuiz}/>

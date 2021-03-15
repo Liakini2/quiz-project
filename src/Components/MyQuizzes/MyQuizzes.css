@@ -1,0 +1,26 @@
+.aboutEdit {
+  margin: 0;
+  padding: 0;
+  background-color: #255693;
+  color: white;
+  text-align: center;
+  height: 8vh;
+}
+
+.aboutEditText {
+  padding-top: 10px;
+}
+
+@media screen and (max-width: 500px) {
+  .myQuizzes {
+    width: 100vw;
+  }
+
+  .aboutEdit {
+    height: 12vh;
+  }
+
+  .aboutEditText {
+    padding: 15px;
+  }
+}

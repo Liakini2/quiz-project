@@ -16,38 +16,57 @@ const Register =(props)=>{
         .then(res=>{
             props.updateUser(res.data)
             props.history.push('/')
+            alert(`Log in to start testing your trivia knowledge!`)
         }).catch(err=>console.log(err))
     }
 
+    
     return(
         <div className='regPg'>
-            <h1>Register</h1>
+            <div className='about'>
+                <h1 className='welcome'>Welcome to Trivial Trivia</h1>
+                <div className='aboutText'>
+                    Use our website to create 
+                    your own quizzes, challenge
+                    your friends, and test your
+                    knowledge!
+                </div>
+            </div>
+            <br></br>
+            <h1 className='registerBelow'>Register Below</h1>
             <input
+            className='registerInput'
             placeholder='username'
             value={username}
             onChange={(e)=>{setUsername(e.target.value)}}
             />
             <input
+            className='registerInput'
             placeholder='email address'
             value={email}
             onChange={(e)=>{setEmail(e.target.value)}}
             />
             <input
+            className='registerInput'
             placeholder='password'
             type='password'
             value={password}
             onChange={(e)=>{setPassword(e.target.value)}}
             />
             <input
+            className='registerInput'
             placeholder='profile picture'
             value={profilePic}
             onChange={(e)=>{setProfilePic(e.target.value)}}
             />
-            <button onClick={register}>
+            <button 
+            className='authButtons'
+            onClick={register}>
                 Register and Login
             </button>
             <Link to='/'>
-            <button>
+            <button
+            className='authButtons'>
                 Back to Login
             </button>
             </Link>

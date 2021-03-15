@@ -1,9 +1,9 @@
 module.exports = {
     getResult: async (req, res)=>{
         const db = req.app.get('db')
-        const {quiz_id} = req.params
+        const {result_id} = req.params
         const {user_id} = req.session.user
-        const [result] = await db.results.get_result([quiz_id, user_id])
+        const [result] = await db.results.get_result([result_id, user_id])
         res.status(200).send(result)
     },
     getResults: async (req, res)=>{

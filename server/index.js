@@ -66,8 +66,8 @@ app.post('/api/answer/:question_id', AnswerCtrl.addAnswer)
 app.put('/api/answer/:answer_id', AnswerCtrl.editAnswer)
 
 //Result endpoints
-app.get('/api/result/:quiz_id', ResultCtrl.getResult)
-app.get('/api/results/:user_id', ResultCtrl.getResults)
+app.get('/api/result/:result_id', ResultCtrl.getResult)
+app.get('/api/results/', ResultCtrl.getResults)
 app.post('/api/result/:quiz_id', ResultCtrl.addResult)
 
 
