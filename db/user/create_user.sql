@@ -1,5 +1,5 @@
 INSERT INTO users
-(username, email, password, profile_pic)
+(username, email, password)
 VALUES 
-($1, $2, $3, $4)
+($1, $2, $3)
 RETURNING *;

@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 
 module.exports = {
     register: async (req, res) =>{
-        const {username, email, password, profile_pic} = req.body
+        const {username, email, password} = req.body
         const db = req.app.get('db')
         const result = await db.user.find_user([email])
         const existingUser = result[0]
@@ -11,10 +11,10 @@ module.exports = {
         }
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password, salt)
-        const registeredUser = await db.user.create_user([username, email, hash, profile_pic])
+        const registeredUser = await db.user.create_user([username, email, hash])
         const user = registeredUser[0]
         delete user.password
-        req.session.user = {username: user.username, email: user.email, profile_pic: user.profile_pic, id: user.id}
+        req.session.user = {username: user.username, email: user.email, id: user.id}
         return res.status(200).send(req.session.user)
     },
     login: async (req, res) =>{
@@ -30,7 +30,7 @@ module.exports = {
             return res.status(401).send('Username or Password Incorrect')
         } else {
             delete user.password
-            req.session.user = {username: user.username, email: user.email, profile_pic: user.profile_pic, user_id: user.user_id}
+            req.session.user = {username: user.username, email: user.email, user_id: user.user_id}
             res.status(200).send(req.session.user)
         }
     },

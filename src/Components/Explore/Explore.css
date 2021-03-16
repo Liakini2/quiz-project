@@ -17,12 +17,17 @@
 .quizCards {
   justify-content: center;
   align-items: center;
-  background-color: #9fa7bc;
+  background-color: #cfd3de;
   width: 250px;
   margin: 10px;
   padding: 10px;
   border-radius: 2%;
   border: 0.25px solid black;
+}
+
+.quizImage {
+  height: auto;
+  width: 200px;
 }
 
 .quizTitle {

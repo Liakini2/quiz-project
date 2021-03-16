@@ -9,15 +9,17 @@ const Register =(props)=>{
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [profilePic, setProfilePic] = useState('')
 
     const register=()=>{
-        axios.post('/api/auth/register', {username, email, password, profilePic})
+        axios.post('/api/auth/register', {username, email, password})
         .then(res=>{
             props.updateUser(res.data)
             props.history.push('/')
             alert(`Log in to start testing your trivia knowledge!`)
-        }).catch(err=>console.log(err))
+        }).catch(err=>{
+            console.log(err)
+            alert('This user is already registered.')
+        })
     }
 
     
@@ -52,12 +54,6 @@ const Register =(props)=>{
             type='password'
             value={password}
             onChange={(e)=>{setPassword(e.target.value)}}
-            />
-            <input
-            className='registerInput'
-            placeholder='profile picture'
-            value={profilePic}
-            onChange={(e)=>{setProfilePic(e.target.value)}}
             />
             <button 
             className='authButtons'

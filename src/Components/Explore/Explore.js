@@ -46,7 +46,6 @@ const Explore =({setQuizzes, quizReducer, history, ...props})=>{
                         <h1 className='quizTitle'>{quiz.title}</h1>
                         <img className='quizImage' src={quiz.quiz_image} alt='quiz'/>
                         <h1>{quiz.description}</h1>
-                        <h1>{quiz.type}</h1>
                         <button
                         className='buttons'
                         type='submit'

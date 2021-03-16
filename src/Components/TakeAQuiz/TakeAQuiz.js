@@ -54,6 +54,7 @@ const TakeAQuiz=({match, history, ...props})=>{
         if(document.getElementById(id).checked){
             copyArrTwo.push(i)
             setUserResults([...userResults, ...copyArrTwo])
+            document.getElementById(id).checked=false
         }
         if(index<questions.length-1){
             setIndex(index+1)

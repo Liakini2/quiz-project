@@ -27,9 +27,8 @@ const MyQuizzes=({setUserQuizzes, quizReducer, ...props})=>{
                     className='quizCards'
                     key={index}>
                         <h1 className='quizTitle'>{quiz.title}</h1>
-                        <img src={quiz.quiz_image} alt='quiz'/>
+                        <img className='twoQuizImage' src={quiz.quiz_image} alt='quiz'/>
                         <h1>{quiz.description}</h1>
-                        <h1>{quiz.type}</h1>
                         <Link to={`/editquiz/${quiz.quiz_id}`}>
                             <button className='buttons'> Edit Quiz</button>
                         </Link>

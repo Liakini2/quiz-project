@@ -9,17 +9,14 @@ import {editUserQuiz, setQuiz, deleteUserQuiz} from '../../Redux/quizReducer'
 
 const EditQuiz=({setQuiz, editUserQuiz, deleteUserQuiz, quizReducer, match, ...props})=>{
     const [quiz_image, setQuizImage] = useState('')
-    const [type, setType] = useState('')
     const [description, setDescription] = useState('') 
     const [title, setTitle] = useState('')
 
     useEffect(()=>{
         axios.get(`/api/quiz/${match.params.quiz_id}`)
         .then(({data})=>{
-            
             setQuiz(data)
             setQuizImage(quizReducer.setQuiz.quiz_image)
-            setType(quizReducer.setQuiz.type)
             setDescription(quizReducer.setQuiz.description)
             setTitle(quizReducer.setQuiz.title)
         })
@@ -27,13 +24,12 @@ const EditQuiz=({setQuiz, editUserQuiz, deleteUserQuiz, quizReducer, match, ...p
     },[
         setQuiz, 
         match.params.quiz_id, 
-        quizReducer.setQuiz.quiz_image, 
-        quizReducer.setQuiz.type, 
+        quizReducer.setQuiz.quiz_image,
         quizReducer.setQuiz.description, 
         quizReducer.setQuiz.title])
 
     const editQuiz=()=>{
-        axios.put(`/api/quiz/${match.params.quiz_id}`, {quiz_image, type, description, title})
+        axios.put(`/api/quiz/${match.params.quiz_id}`, {quiz_image, description, title})
         .then(({data})=>editUserQuiz(data))
         .catch(err=>console.log(err))
     }
@@ -59,12 +55,6 @@ const EditQuiz=({setQuiz, editUserQuiz, deleteUserQuiz, quizReducer, match, ...p
                 value={quiz_image||""}
                 onChange={(e)=>setQuizImage(e.target.value)}
                 placeholder='quiz image'/>
-                <h1>Quiz Type:</h1>
-                <input
-                className='altEditInputField'
-                value={type||""}
-                onChange={(e)=>setType(e.target.value)}
-                placeholder='type'/>
                 <h1>Quiz Description</h1>
                 <textarea
                 className='editInputField'

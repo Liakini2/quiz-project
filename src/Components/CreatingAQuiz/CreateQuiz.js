@@ -25,12 +25,11 @@ const useStyles = makeStyles((theme)=>({
 const CreateQuiz=(props)=>{
     const classes = useStyles()
     const [quiz_image, setQuizImage] = useState('')
-    const [type, setType] = useState('')
     const [description, setDescription] = useState('') 
     const [title, setTitle] = useState('')
 
     const addQuiz=()=>{
-        axios.post('/api/quizzes', {quiz_image, type, description, title})
+        axios.post('/api/quizzes', {quiz_image, description, title})
         .then(({data})=>{
             props.submitQuiz(data)
             props.history.push(`/addquestions/${data.quiz_id}`)
@@ -61,13 +60,6 @@ const CreateQuiz=(props)=>{
                 variant='filled'
                 value={quiz_image}
                 onChange={(e)=>setQuizImage(e.target.value)}
-                />
-                <TextField
-                name='quizType'
-                label='Quiz Type'
-                variant='filled'
-                value={type}
-                onChange={(e)=>setType(e.target.value)}
                 />
                 <TextField
                 name='quizDescription'

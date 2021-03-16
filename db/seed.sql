@@ -8,15 +8,13 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    password VARCHAR(5000) NOT NULL,
-    profile_pic TEXT
+    password VARCHAR(5000) NOT NULL
 );
 
 CREATE TABLE quiz (
     author_id INTEGER REFERENCES users(user_id),
     quiz_id SERIAL PRIMARY KEY,
     quiz_image TEXT,
-    type VARCHAR(50),
     description VARCHAR(500),
     title VARCHAR(100)
 );
@@ -50,3 +48,4 @@ SELECT * FROM users;
 SELECT * FROM quiz;
 SELECT * FROM quiz_question;
 SELECT * FROM answers;
+SELECT * FROM result;

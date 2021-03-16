@@ -30,10 +30,11 @@ const Profile=(props)=>{
             
             <h1 className='myResults'>My Results</h1>
             <Line
-            height={400}
-            width={600}
+            height={100}
+            width={200}
             options={{
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                // responsive: true
             }}
             data={{
                 labels: [0, ...newTaken], 

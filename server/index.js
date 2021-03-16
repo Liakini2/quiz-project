@@ -3,8 +3,11 @@ const express = require('express')
 const massive = require('massive')
 const session = require('express-session')
 const app = express()
-const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 const path = require('path')
+const bodyParser = require('body-parser')
+const nodemailer = require('nodemailer')
+
+const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, NODEMAILER_USER, NODEMAILER_PASS, NODEMAILER_SERVICE} = process.env
 
 //CONTROLLERS
 const AuthCtrl = require('./controllers/auth')
@@ -70,6 +73,29 @@ app.get('/api/result/:result_id', ResultCtrl.getResult)
 app.get('/api/results/', ResultCtrl.getResults)
 app.post('/api/result/:quiz_id', ResultCtrl.addResult)
 
+// app.post('/', (req, res)=>{
+//     let transporter = nodemailer.createTransport({
+//         service: NODEMAILER_SERVICE, 
+//         auth: {
+//             user: `${NODEMAILER_USER}`, 
+//             pass: NODEMAILER_PASS, 
+//         },
+//     });
+
+//     let info = await transporter.sendMail({
+//         from: '"Trivial Trivia" <NODEMAILER_USER>', 
+//         to: "bar@example.com, baz@example.com", 
+//         subject: "Hello! And Thank You!", 
+//         text: "Thank you for signing up for Trivial Trivia! We look forward to seeing you share your trivia knowledge!", 
+//         html: "<b>Hello world?</b>", 
+//     });
+
+//     console.log("Message sent: %s", info.messageId);
+    
+//     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    
+//     res.status(200).send('Email Sent!')
+// })
 
 //Hosting
 // app.use(express.static(__dirname + '../build/index.html'))
