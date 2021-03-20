@@ -15,15 +15,15 @@ const Explore =({setQuizzes, quizReducer, history, ...props})=>{
         .catch(err=>console.log(err))
     }, [setQuizzes])
 
-    const filterSearch=(search)=>{
-        quizReducer.setQuizzes.filter((quiz)=>{
-            return quiz.title.toLowerCase().includes(search.toLowerCase())
-        })
-    }
+    // const filterSearch=(search)=>{
+    //     quizReducer.setQuizzes.filter((quiz)=>{
+    //         return quiz.title.toLowerCase().includes(search.toLowerCase())
+    //     })
+    // }
 
     return(
         <div className='expore'>
-            <div className='aboutExplore'>
+            {/* <div className='aboutExplore'>
                 <input 
                 className='searchBar'
                 placeholder='Search...'
@@ -36,7 +36,7 @@ const Explore =({setQuizzes, quizReducer, history, ...props})=>{
                 >
                     Search 
                 </button>
-            </div>
+            </div> */}
 
             <div className='quizDisplay'>
                 {quizReducer.setQuizzes.map((quiz)=>(

@@ -84,6 +84,7 @@ const Header=(props)=>{
             >
                 <div className='menu-btn_burger'></div>
             </div>
+            <h1 className='logo'>TRIVIAL TRIVIA</h1>
         </header>
     )
 }

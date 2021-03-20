@@ -4,8 +4,8 @@ const massive = require('massive')
 const session = require('express-session')
 const app = express()
 const path = require('path')
-const bodyParser = require('body-parser')
-const nodemailer = require('nodemailer')
+// const bodyParser = require('body-parser')
+// const nodemailer = require('nodemailer')
 
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, NODEMAILER_USER, NODEMAILER_PASS, NODEMAILER_SERVICE} = process.env
 
@@ -97,8 +97,8 @@ app.post('/api/result/:quiz_id', ResultCtrl.addResult)
 //     res.status(200).send('Email Sent!')
 // })
 
-//Hosting
-// app.use(express.static(__dirname + '../build/index.html'))
-// app.get('*', (req, res)=>{
-//     res.sendFile(path.join(__dirname, '../build/index.html'))
-// })
+// Hosting
+app.use(express.static(__dirname + '/../build'))
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname + '../build'))
+})

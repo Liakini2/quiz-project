@@ -18,9 +18,12 @@
   left: 0;
   width: 100vw;
   height: 30vh;
-  background-image: url("https://media.istockphoto.com/photos/innovation-and-new-ideas-lightbulb-concept-with-question-mark-picture-id1279690557?k=6&m=1279690557&s=612x612&w=0&h=HnYiimAd6S5-m-U87G2LHkC6dhwE1wtgDED_dXgnDlg=");
-  background-size: cover;
-  background-repeat: no-repeat;
+  /* background-image: url("https://media.istockphoto.com/photos/innovation-and-new-ideas-lightbulb-concept-with-question-mark-picture-id1279690557?k=6&m=1279690557&s=612x612&w=0&h=HnYiimAd6S5-m-U87G2LHkC6dhwE1wtgDED_dXgnDlg=https://media.istockphoto.com/photos/innovation-and-new-ideas-lightbulb-concept-with-question-mark-picture-id1279690557?k=6&m=1279690557&s=612x612&w=0&h=HnYiimAd6S5-m-U87G2LHkC6dhwE1wtgDED_dXgnDlg="); */
+  /* background-size: cover;
+  background-repeat: no-repeat; */
+  background-color: #255693;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -29,7 +32,6 @@
   font-size: x-large;
   justify-content: center;
   align-items: center;
-  padding-right: 50vw;
   margin: 50px;
 }
 
@@ -37,7 +39,6 @@
   font-size: x-large;
   justify-content: center;
   align-items: center;
-  padding-right: 50vw;
   margin: 50px;
 }
 
